@@ -9,3 +9,4 @@ vendor/
 *.deb
 *.buildinfo
 *.changes
+/nbproject/private/
