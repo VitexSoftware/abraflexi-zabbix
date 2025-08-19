@@ -1,0 +1,39 @@
+{
+    "name": "vitexsoftware/abraflexi-zabbix",
+    "description": "Monitor Your AbraFlexi using Zabbix",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vítězslav Dvořák",
+            "email": "info@vitexsoftware.cz"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "spojenet/flexibee": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "AbraFlexi\\": "src/AbraFlexi/",
+            "AbraFlexi\\Zabbix\\": "src/AbraFlexi/Zabbix/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\AbraFlexi\\": "vendor/spojenet/abraflexi/testing/src/AbraFlexi/",
+            "Test\\AbraFlexi\\Zabbix\\": "tests/AbraFlexi/Zabbix/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "phpstan/phpstan": "*",
+        "friendsofphp/php-cs-fixer": "^3.85",
+        "ergebnis/composer-normalize": "^2.47",
+        "ergebnis/php-cs-fixer-config": "^6.51"
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        }
+    }
+}
