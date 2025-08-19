@@ -1,1 +1,11 @@
 .env
+debian/abraflexi-zabbix/
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/*.substvars
+composer.lock
+vendor/
+*.deb
+*.buildinfo
+*.changes
