@@ -1,2 +1,2 @@
-# abraflexi-zabbix
-Monitor your AbraFlexi using Zabbix
+# Zabbix template for montoring AbraFlexi server
+
