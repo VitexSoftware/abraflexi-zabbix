@@ -1,6 +1,14 @@
-abraflexi-zabbix (0.1.0) UNRELEASED; urgency=low
+abraflexi-zabbix (1.0.0) unstable; urgency=low
 
-  * Initial release. Closes: #nnnn
-    <nnnn is the bug number of your ITP>
+  * Initial release of comprehensive AbraFlexi Zabbix monitoring
+  * Added Low Level Discovery for AbraFlexi companies/databases
+  * Implemented system metrics monitoring from /status.json endpoint
+  * Added network connectivity monitoring with granular error detection
+  * Created immediate alerting for network, authentication, service issues
+  * Implemented performance monitoring (memory, CPU, sessions, users)
+  * Added company availability monitoring
+  * Provided comprehensive Zabbix template with triggers
+  * Added proper error handling and logging
+  * Included installation and configuration documentation
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sat, 16 Aug 2025 01:52:21 +0200
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Thu, 05 Dec 2025 15:00:00 +0100

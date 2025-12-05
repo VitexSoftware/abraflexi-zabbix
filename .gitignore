@@ -10,3 +10,6 @@ vendor/
 *.buildinfo
 *.changes
 /nbproject/private/
+/debian/dirs
+/debian/abraflexi-zabbix.debhelper.log
+/debian/abraflexi-zabbix.postrm.debhelper

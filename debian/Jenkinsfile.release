@@ -1,16 +1,11 @@
 #!groovy
 
-// Current version of this Pipeline https://github.com/VitexSoftware/BuildImages/blob/main/Test/Jenkinsfile-parael
+// Current version of this Pipeline https://raw.githubusercontent.com/VitexSoftware/multiflexi-buildimages/refs/heads/main/Test/multiflexi-halloworld/Jenkinsfile
 
-String[] distributions = [
-    'debian:bookworm',
-    'debian:trixie',
-    'debian:forky',
-    'ubuntu:jammy',
-    'ubuntu:noble'
-]
+String[] distributions = ['debian:bookworm', 'debian:trixie', 'debian:forky', 'ubuntu:jammy', 'ubuntu:noble']
 
 String vendor = 'vitexsoftware'
+String imagePrefix = 'multiflexi-'
 //String distroFamily = ''
 
 properties([
@@ -25,14 +20,12 @@ node() {
 }
 
 def branches = [:]
-
 distributions.each { distro ->
     branches[distro] = {
         def distroName = distro
         println  "Dist:" + distroName
 
         def dist = distroName.split(':')
-        def distroFamily = dist[0]
         def distroCode = dist[1]
         def buildImage = ''
         def artifacts = []
@@ -42,7 +35,7 @@ distributions.each { distro ->
             ansiColor('xterm') {
                 stage('Checkout ' + distroName) {
                     checkout scm
-                    def imageName = vendor + '/' + distro
+                    def imageName = vendor + '/' + imagePrefix + distroCode + ':latest'
                     buildImage = docker.image(imageName)
                     sh 'git checkout debian/changelog'
                     def version = sh (
@@ -109,12 +102,17 @@ distributions.each { distro ->
         }
     }
 }
-
-
 parallel branches
 
-node {
-    stage('Publish to Aptly') {
-        publishDebToAptly()
-    }
+if (!currentBuild.result || currentBuild.result == 'SUCCESS') {
+    build job: 'MultiFlexi-publish',
+      wait: false,
+      parameters: [
+        string(name: 'UPSTREAM_JOB', value: env.JOB_NAME),
+        string(name: 'UPSTREAM_BUILD', value: env.BUILD_NUMBER),
+        string(name: 'REMOTE_SSH', value: 'multirepo@repo.multiflexi.eu'),
+        string(name: 'REMOTE_REPO_DIR', value: '/srv/repo'),
+        string(name: 'COMPONENT', value: 'main'),
+        string(name: 'DEB_DIST', value: '')
+      ]
 }

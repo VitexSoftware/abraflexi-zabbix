@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# AbraFlexi Zabbix Network Check Wrapper
+# Network checks with granular error detection
+
+php -f /usr/lib/abraflexi-zabbix/network_check.php -- "$@"

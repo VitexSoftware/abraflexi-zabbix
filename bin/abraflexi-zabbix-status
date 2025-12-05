@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# AbraFlexi Zabbix Status Wrapper with Caching
+# This script implements intelligent caching to reduce server load
+
+php -f /usr/lib/abraflexi-zabbix/cached_system_status.php -- "$@"

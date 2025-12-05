@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+# Ask for AbraFlexi server configuration
+db_input high abraflexi-zabbix/abraflexi_url || true
+db_input high abraflexi-zabbix/abraflexi_login || true  
+db_input high abraflexi-zabbix/abraflexi_password || true
+
+db_go || true

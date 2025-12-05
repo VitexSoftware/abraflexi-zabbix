@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+# Test basic package installation and file presence
+test -f /usr/lib/abraflexi-zabbix/company_lld.php
+test -f /usr/lib/abraflexi-zabbix/system_status.php
+test -f /usr/lib/abraflexi-zabbix/cached_system_status.php
+test -f /usr/lib/abraflexi-zabbix/network_check.php
+
+test -f /usr/bin/abraflexi-zabbix-lld-company
+test -f /usr/bin/abraflexi-zabbix-status
+test -f /usr/bin/abraflexi-zabbix-network
+
+echo "Package installation test passed"

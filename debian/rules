@@ -1,15 +1,13 @@
 #!/usr/bin/make -f
-# You must remove unused comment lines for the released package.
-#export DH_VERBOSE = 1
-#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
-#export DEB_LDFLAGS_MAINT_APPEND = -Wl,-O1
+# AbraFlexi Zabbix monitoring package rules
 
 %:
 	dh $@
 
-#override_dh_auto_install:
-#	dh_auto_install -- prefix=/usr
-
-#override_dh_install:
-#	dh_install --list-missing -X.pyc -X.pyo
+override_dh_install:
+	dh_install
+	# Modify PHP files to use system-wide configuration paths after files are installed
+	sed -i "s|'\.\.\/\.env'|'/etc/abraflexi-zabbix/.env'|g" debian/abraflexi-zabbix/usr/lib/abraflexi-zabbix/*.php || true
+	sed -i 's|"\.\.\/\.env"|"/etc/abraflexi-zabbix/.env"|g' debian/abraflexi-zabbix/usr/lib/abraflexi-zabbix/*.php || true
+	sed -i "s|'\.\.\/vendor\/autoload\.php'|'/var/lib/composer/abraflexi-zabbix/autoload.php'|g" debian/abraflexi-zabbix/usr/lib/abraflexi-zabbix/*.php || true
+	sed -i 's|"\.\.\/vendor\/autoload\.php"|"/var/lib/composer/abraflexi-zabbix/autoload.php"|g' debian/abraflexi-zabbix/usr/lib/abraflexi-zabbix/*.php || true

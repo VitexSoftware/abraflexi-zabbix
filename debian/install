@@ -1,2 +1,14 @@
 
-# You must remove unused comment lines for the released package.
+# AbraFlexi Zabbix monitoring files
+
+
+debian/conf/composer.json       usr/lib/abraflexi-zabbix/
+src/company_lld.php usr/lib/abraflexi-zabbix/
+src/system_status.php usr/lib/abraflexi-zabbix/
+src/cached_system_status.php usr/lib/abraflexi-zabbix/
+src/network_check.php usr/lib/abraflexi-zabbix/
+bin/* usr/bin/
+zabbix/abraflexi.conf etc/zabbix/zabbix_agentd.d/
+zabbix/abraflexi-agent2.conf etc/zabbix/zabbix_agent2.d/
+zabbix/abraflexi-template.xml usr/share/doc/abraflexi-zabbix/
+.env.example usr/share/doc/abraflexi-zabbix/
