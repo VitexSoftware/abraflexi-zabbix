@@ -16,7 +16,7 @@ tests: vendor
 	symfony php vendor/bin/phpunit tests
 
 .PHONY: vendor
-vendor: composer.json composer.lock ## Installs composer dependencies
+vendor: composer.json ## Installs composer dependencies
 	composer install
 
 .PHONY: cs
