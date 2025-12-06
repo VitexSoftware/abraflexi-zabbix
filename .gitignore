@@ -15,3 +15,6 @@ vendor/
 /debian/abraflexi-zabbix.postrm.debhelper
 .build/
 
+# PHPUnit test artifacts
+.phpunit.cache/
+tests/coverage/

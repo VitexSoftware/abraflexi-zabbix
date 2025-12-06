@@ -63,6 +63,49 @@ distributions.each { distro ->
                         def debconf_debug = 0 //Set to "5" or "developer" to debug debconf
                         sh 'cd $WORKSPACE/dist/debian/ ; dpkg-scanpackages . /dev/null > Packages; gzip -9c Packages > Packages.gz; cd $WORKSPACE'
                         sh 'echo "deb [trusted=yes] file://///$WORKSPACE/dist/debian/ ./" | sudo tee /etc/apt/sources.list.d/local.list'
+                        
+                        // Add Zabbix repository based on distribution
+                        sh '''
+                            set -e
+                            DISTRO_CODE=$(lsb_release -sc)
+                            DISTRO_ID=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
+                            
+                            echo "Setting up Zabbix repository for $DISTRO_ID $DISTRO_CODE"
+                            
+                            # Add Zabbix repository key using modern approach
+                            wget -q https://repo.zabbix.com/zabbix-official-repo.key -O /tmp/zabbix.key
+                            sudo mkdir -p /etc/apt/keyrings
+                            sudo cp /tmp/zabbix.key /etc/apt/keyrings/zabbix.asc
+                            rm -f /tmp/zabbix.key
+                            
+                            # Add repository based on distribution
+                            if [ "$DISTRO_ID" = "debian" ]; then
+                                case "$DISTRO_CODE" in
+                                    bookworm) 
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/debian bookworm main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        ;;
+                                    trixie|forky) 
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/debian bookworm main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        ;;
+                                    *) 
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/debian bookworm main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        ;;
+                                esac
+                            elif [ "$DISTRO_ID" = "ubuntu" ]; then
+                                case "$DISTRO_CODE" in
+                                    jammy) 
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        ;;
+                                    noble) 
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        ;;
+                                    *) 
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        ;;
+                                esac
+                            fi
+                        '''
+                        
                         sh 'sudo apt-get update --allow-releaseinfo-change'
                         sh 'echo "INSTALATION"'
                         artifacts.each { deb_file ->
