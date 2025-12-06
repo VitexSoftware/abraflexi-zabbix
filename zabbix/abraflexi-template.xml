@@ -50,6 +50,14 @@
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7acc</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity)=0</expression>
+                            <name>AbraFlexi network connectivity failed</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
                 </item>
 
                 <item>
@@ -63,6 +71,14 @@
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7acd</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.authentication)=0</expression>
+                            <name>AbraFlexi authentication failed</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
                 </item>
 
                 <item>
@@ -76,6 +92,14 @@
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ace</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.service)=0</expression>
+                            <name>AbraFlexi service health check failed</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
                 </item>
 
                 <item>
@@ -141,6 +165,14 @@ return 0;</parameter>
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac3</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.appServerRunning)=0</expression>
+                            <name>AbraFlexi application server is down</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
                 </item>
 
                 <item>
@@ -151,6 +183,20 @@ return 0;</parameter>
                     <history>30d</history>
                     <trends>365d</trends>
                     <value_type>FLOAT</value_type>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac4</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.systemLoad) &gt; 5.0</expression>
+                            <name>High system load</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac5</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.systemLoad) &gt; 10.0</expression>
+                            <name>Critical system load</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
                 </item>
 
                 <item>
@@ -176,11 +222,52 @@ return 0;</parameter>
                 </item>
 
                 <item>
+                    <uuid>748ad4d098d447d492bb935c178a7a7e</uuid>
+                    <name>Memory usage percentage</name>
+                    <type>CALCULATED</type>
+                    <key>abraflexi.system.memoryUsagePercent</key>
+                    <delay>1m</delay>
+                    <history>30d</history>
+                    <trends>365d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <params>last(/AbraFlexi Server Monitoring/abraflexi.system.memoryUsed) / last(/AbraFlexi Server Monitoring/abraflexi.system.memoryHeap) * 100</params>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac6</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.memoryUsagePercent) &gt; 85</expression>
+                            <name>High memory usage</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac7</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.memoryUsagePercent) &gt; 95</expression>
+                            <name>Critical memory usage</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+
+                <item>
                     <uuid>748ad4d098d447d492bb935c178a7a78</uuid>
                     <name>Logged users total</name>
                     <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.loggedUser</key>
                     <value_type>UNSIGNED</value_type>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac8</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.loggedUser) &gt; 50</expression>
+                            <name>High number of logged users</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac9</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.loggedUser) &gt; 100</expression>
+                            <name>Critical number of logged users</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
                 </item>
 
                 <item>
@@ -189,6 +276,20 @@ return 0;</parameter>
                     <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.sessions</key>
                     <value_type>UNSIGNED</value_type>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7aca</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.sessions) &gt; 75</expression>
+                            <name>High number of active sessions</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7acb</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.sessions) &gt; 150</expression>
+                            <name>Critical number of active sessions</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
                 </item>
 
                 <item>
