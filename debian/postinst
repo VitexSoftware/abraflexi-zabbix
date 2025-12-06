@@ -56,6 +56,11 @@ EOF
         # Set proper ownership
         chown -R zabbix:zabbix /usr/lib/abraflexi-zabbix/ 2>/dev/null || true
         
+        # Create cache directory with proper permissions
+        mkdir -p /var/cache/abraflexi-zabbix
+        chown zabbix:zabbix /var/cache/abraflexi-zabbix
+        chmod 755 /var/cache/abraflexi-zabbix
+        
         # Restart zabbix-agent if running
         if systemctl is-active --quiet zabbix-agent; then
             systemctl restart zabbix-agent || true

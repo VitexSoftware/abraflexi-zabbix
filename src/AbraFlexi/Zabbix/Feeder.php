@@ -27,7 +27,19 @@ class Feeder
 
     public function __construct(?string $cacheDir = null)
     {
-        $this->cacheDir = $cacheDir ?? sys_get_temp_dir() . '/abraflexi-zabbix-cache';
+        if ($cacheDir !== null) {
+            $this->cacheDir = $cacheDir;
+        } else {
+            // Try system cache directory first, fallback to user temp if not writable
+            $systemCacheDir = '/var/cache/abraflexi-zabbix';
+            if (is_writable(dirname($systemCacheDir)) && (is_dir($systemCacheDir) || mkdir($systemCacheDir, 0o755, true))) {
+                $this->cacheDir = $systemCacheDir;
+            } else {
+                // Fallback to user temp directory for development
+                $this->cacheDir = sys_get_temp_dir() . '/abraflexi-zabbix-cache-' . posix_getuid();
+            }
+        }
+        
         $this->cacheFile = $this->cacheDir . '/status_cache.json';
         $this->lockFile = $this->cacheDir . '/status_cache.lock';
         $this->testMode = defined('TEST_ENV') && TEST_ENV === true;

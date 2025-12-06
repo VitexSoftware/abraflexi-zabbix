@@ -12,6 +12,9 @@ case "$1" in
         # Remove all configuration files
         rm -rf /etc/abraflexi-zabbix/ 2>/dev/null || true
         
+        # Remove cache directory
+        rm -rf /var/cache/abraflexi-zabbix/ 2>/dev/null || true
+        
         # Restart zabbix-agent if running
         if systemctl is-active --quiet zabbix-agent; then
             systemctl restart zabbix-agent || true

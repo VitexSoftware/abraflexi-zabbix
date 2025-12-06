@@ -7,7 +7,9 @@
 override_dh_install:
 	dh_install
 	# Modify PHP files to use system-wide configuration paths after files are installed
+	sed -i "s|'\.\.\/\.env'|'/etc/abraflexi-zabbix/.env'|g" debian/abraflexi-zabbix/usr/lib/abraflexi-zabbix/*.php || true
+	sed -i 's|"\.\.\/\.env"|"/etc/abraflexi-zabbix/.env"|g' debian/abraflexi-zabbix/usr/lib/abraflexi-zabbix/*.php || true
 	sed -i "s|'\.\.\/\.env'|'/etc/abraflexi-zabbix/.env'|g" debian/abraflexi-zabbix/usr/lib/abraflexi-zabbix/AbraFlexi/Zabbix/Feeder.php || true
 	sed -i 's|"\.\.\/\.env"|"/etc/abraflexi-zabbix/.env"|g' debian/abraflexi-zabbix/usr/lib/abraflexi-zabbix/AbraFlexi/Zabbix/Feeder.php || true
-	# Replace autoload path for installed package
+	# Replace autoload path for installed package  
 	sed -i "s|__DIR__ \. '\/\.\.\/vendor\/autoload\.php'|'/var/lib/composer/abraflexi-zabbix/autoload.php'|g" debian/abraflexi-zabbix/usr/lib/abraflexi-zabbix/*.php || true
