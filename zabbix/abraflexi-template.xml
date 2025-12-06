@@ -87,6 +87,48 @@
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                 </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7ada</uuid>
+                    <name>AbraFlexi version numeric</name>
+                    <type>DEPENDENT</type>
+                    <key>abraflexi.system.version.numeric</key>
+                    <delay>0</delay>
+                    <history>30d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <master_item>
+                        <key>abraflexi.system.version</key>
+                    </master_item>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>var parts = value.split('.').map(function(part) { return parseInt(part, 10); });
+if (parts.length &amp;gt;= 2) {
+    var major = parts[0];
+    var minor = parts[1];
+    var patch = parts.length &amp;gt; 2 ? parts[2] : 0;
+    return major * 1000000 + minor * 1000 + patch;
+}
+return 0;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac0</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&amp;gt;prev(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)</expression>
+                            <name>AbraFlexi was updated</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac1</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&amp;lt;prev(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)</expression>
+                            <name>AbraFlexi was downgraded</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
 
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a74</uuid>
@@ -174,6 +216,14 @@
                     <key>abraflexi.system.responseTime</key>
                     <value_type>UNSIGNED</value_type>
                     <units>ms</units>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac2</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.responseTime) &amp;gt; 5000</expression>
+                            <name>Slow API response time</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
                 </item>
 
                 <item>

@@ -65,7 +65,7 @@ Comprehensive monitoring solution for AbraFlexi server using Zabbix with Low Lev
 
 4. Import Zabbix template:
    - Open Zabbix web interface
-   - Go to Configuration → Templates
+   - Go to Data Collection → Templates
    - Click Import
    - Upload `zabbix/abraflexi-template.xml`
    - Apply template to your AbraFlexi server host
