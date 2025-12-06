@@ -96,7 +96,8 @@ distributions.each { distro ->
                             echo "Setting up Zabbix repository for $DISTRO_ID $DISTRO_CODE ($ZABBIX_DIST)"
                             
                             # Download and install Zabbix release package
-                            wget -q "https://repo.zabbix.com/zabbix/7.0/release/$DISTRO_ID/pool/main/z/zabbix-release/zabbix-release_latest+$ZABBIX_DIST\_all.deb" -O zabbix-release.deb
+                            ZABBIX_URL="https://repo.zabbix.com/zabbix/7.0/release/$DISTRO_ID/pool/main/z/zabbix-release/zabbix-release_latest+${ZABBIX_DIST}_all.deb"
+                            wget -q "$ZABBIX_URL" -O zabbix-release.deb
                             sudo dpkg -i zabbix-release.deb || true
                             rm -f zabbix-release.deb
                         '''
