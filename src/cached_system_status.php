@@ -20,4 +20,4 @@ use AbraFlexi\Zabbix\Feeder;
 \define('APP_NAME', 'AbraFlexi-Cached-Status');
 
 // Handle command line execution
-Feeder::handleCommandLine();
+Feeder::handleCommandLine('../.env');

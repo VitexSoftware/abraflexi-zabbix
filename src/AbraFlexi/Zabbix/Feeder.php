@@ -831,13 +831,13 @@ class Feeder
     /**
      * Parse command line arguments and execute cached status retrieval.
      */
-    public static function handleCommandLine(): void
+    public static function handleCommandLine(string $envf): void
     {
         // Parse command line arguments
         $options = getopt('m::e::d::c::', ['metric::', 'env::', 'debug::', 'color::']);
 
         // Get the path to the .env file
-        $envfile = $options['env'] ?? '../.env';
+        $envfile = $options['env'] ?? $envf;
         \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD'], $envfile);
 
         // Get metric from command line if provided
