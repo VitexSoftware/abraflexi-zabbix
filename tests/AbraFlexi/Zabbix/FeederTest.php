@@ -154,22 +154,35 @@ class FeederTest extends TestCase
 
     public function testCaching(): void
     {
-        // Test that cached results are returned within the cache period
-        $start = microtime(true);
+        // Clear any existing cache
+        $cacheDir = sys_get_temp_dir() . '/abraflexi-zabbix-cache';
+        $cacheFile = $cacheDir . '/status_cache.json';
+        if (file_exists($cacheFile)) {
+            unlink($cacheFile);
+        }
+
+        // First call should create cache
         ob_start();
         $this->feeder->getCachedSystemStatus();
         $result1 = ob_get_clean();
-        $time1 = microtime(true) - $start;
         
-        $start = microtime(true);
+        // Cache file should now exist
+        $this->assertFileExists($cacheFile);
+        $cacheTime1 = filemtime($cacheFile);
+        
+        // Small delay to ensure different timestamps if cache was recreated
+        usleep(10000); // 10ms
+        
+        // Second call should use cache (not recreate it)
         ob_start();
         $this->feeder->getCachedSystemStatus();
         $result2 = ob_get_clean();
-        $time2 = microtime(true) - $start;
         
-        // Second call should be faster (cached) and return same result
+        $cacheTime2 = filemtime($cacheFile);
+        
+        // Results should be identical and cache file should not be newer
         $this->assertEquals($result1, $result2);
-        $this->assertLessThan($time1, $time2);
+        $this->assertEquals($cacheTime1, $cacheTime2, 'Cache file was recreated when it should have been reused');
     }
 
     public function testResponseTimeLogging(): void
