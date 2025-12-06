@@ -4,25 +4,17 @@ set -e
 
 . /usr/share/debconf/confmodule
 
-# Only ask for configuration if values are not already set
-# This preserves existing configuration during package upgrades
-
-# Check if URL is already configured, if not ask for it
-db_get abraflexi-zabbix/abraflexi_url || true
-if [ -z "$RET" ]; then
-    db_input high abraflexi-zabbix/abraflexi_url || true
+# Check if this is a reconfiguration
+if [ "$1" = "reconfigure" ]; then
+    # During reconfiguration, always prompt for configuration
+    db_fset abraflexi-zabbix/abraflexi_url seen false || true
+    db_fset abraflexi-zabbix/abraflexi_login seen false || true  
+    db_fset abraflexi-zabbix/abraflexi_password seen false || true
 fi
 
-# Check if login is already configured, if not ask for it  
-db_get abraflexi-zabbix/abraflexi_login || true
-if [ -z "$RET" ]; then
-    db_input high abraflexi-zabbix/abraflexi_login || true
-fi
-
-# Check if password is already configured, if not ask for it
-db_get abraflexi-zabbix/abraflexi_password || true
-if [ -z "$RET" ]; then
-    db_input high abraflexi-zabbix/abraflexi_password || true
-fi
+# Prompt for configuration values
+db_input medium abraflexi-zabbix/abraflexi_url || true
+db_input medium abraflexi-zabbix/abraflexi_login || true
+db_input medium abraflexi-zabbix/abraflexi_password || true
 
 db_go || true
