@@ -7,6 +7,7 @@ src/company_lld.php usr/lib/abraflexi-zabbix/
 src/system_status.php usr/lib/abraflexi-zabbix/
 src/cached_system_status.php usr/lib/abraflexi-zabbix/
 src/network_check.php usr/lib/abraflexi-zabbix/
+src/AbraFlexi/Zabbix/Feeder.php usr/lib/abraflexi-zabbix/AbraFlexi/Zabbix/
 bin/* usr/bin/
 zabbix/abraflexi.conf etc/zabbix/zabbix_agentd.d/
 zabbix/abraflexi-agent2.conf etc/zabbix/zabbix_agent2.d/

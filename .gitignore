@@ -13,3 +13,7 @@ vendor/
 /debian/dirs
 /debian/abraflexi-zabbix.debhelper.log
 /debian/abraflexi-zabbix.postrm.debhelper
+
+# PHPUnit test artifacts
+.phpunit.cache/
+tests/coverage/

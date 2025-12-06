@@ -50,6 +50,9 @@ EOF
         chmod +x /usr/bin/abraflexi-zabbix-status
         chmod +x /usr/bin/abraflexi-zabbix-network
         
+        # Set proper permissions for Feeder class
+        chmod 644 /usr/lib/abraflexi-zabbix/AbraFlexi/Zabbix/Feeder.php
+        
         # Set proper ownership
         chown -R zabbix:zabbix /usr/lib/abraflexi-zabbix/ 2>/dev/null || true
         

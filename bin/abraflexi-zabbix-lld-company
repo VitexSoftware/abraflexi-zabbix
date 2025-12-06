@@ -1,2 +1,2 @@
 #!/bin/bash
-php -f /usr/lib/abraflexi-zabbix/network_check.php -- $@
+php -f /usr/lib/abraflexi-zabbix/company_lld.php -- $@

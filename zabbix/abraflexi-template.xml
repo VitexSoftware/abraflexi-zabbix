@@ -269,6 +269,23 @@
                     </tags>
                 </item>
                 <item>
+                    <uuid>748ad4d098d447d492bb935c178a7a89</uuid>
+                    <name>API Response time</name>
+                    <type>ZABBIX_AGENT</type>
+                    <key>abraflexi.system.responseTime</key>
+                    <history>30d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <units>ms</units>
+                    <description>API response time for /status.json endpoint in milliseconds</description>
+                    <tags>
+                        <tag>
+                            <tag>component</tag>
+                            <value>performance</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
                     <uuid>748ad4d098d447d492bb935c178a7a84</uuid>
                     <name>Java version</name>
                     <type>ZABBIX_AGENT</type>
@@ -511,9 +528,23 @@
                     </tags>
                 </trigger>
 
+                <trigger>
+                    <uuid>748ad4d098d447d492bb935c178a7aa7</uuid>
+                    <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.responseTime)&gt;5000</expression>
+                    <name>AbraFlexi high API response time</name>
+                    <priority>WARNING</priority>
+                    <description>API response time is above 5 seconds. This may indicate server performance issues or network latency.</description>
+                    <tags>
+                        <tag>
+                            <tag>scope</tag>
+                            <value>performance</value>
+                        </tag>
+                    </tags>
+                </trigger>
+
                 <!-- User Activity Monitoring -->
                 <trigger>
-                    <uuid>748ad4d098d447d492bb935c178a7aa6</uuid>
+                    <uuid>748ad4d098d447d492bb935c178a7aa8</uuid>
                     <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.loggedUser)&gt;100</expression>
                     <name>AbraFlexi high number of logged users</name>
                     <priority>INFO</priority>

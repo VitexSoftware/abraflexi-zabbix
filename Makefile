@@ -27,5 +27,17 @@ cs:
 phpunit:
 	vendor/bin/phpunit
 
+.PHONY: test
+test: vendor ## Run PHPUnit tests
+	vendor/bin/phpunit
+
+.PHONY: test-coverage
+test-coverage: vendor ## Run PHPUnit tests with coverage
+	vendor/bin/phpunit --coverage-html tests/coverage
+
+.PHONY: test-ci
+test-ci: vendor ## Run PHPUnit tests for CI
+	vendor/bin/phpunit --coverage-text --colors=never
+
 companylld:
 	cd src; php company_lld.php

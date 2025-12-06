@@ -1,5 +1,9 @@
 # AbraFlexi Zabbix Monitoring
 
+<p align="center">
+  <img src="project-logo.svg?raw=true" alt="AbraFlexi Zabbix Logo" width="200" height="200">
+</p>
+
 Comprehensive monitoring solution for AbraFlexi server using Zabbix with Low Level Discovery, system metrics, and granular alerting.
 
 ## Features
