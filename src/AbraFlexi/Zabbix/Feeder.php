@@ -117,9 +117,9 @@ class Feeder
                 $jsonOutput = json_encode($cachedData, $jsonFlags);
                 
                 if ($colorMode && $debugMode) {
-                    echo $this->colorizeJson($jsonOutput);
+                    echo $this->colorizeJson($jsonOutput) . "\n";
                 } else {
-                    echo $jsonOutput;
+                    echo $jsonOutput . "\n";
                 }
             }
 
@@ -132,7 +132,7 @@ class Feeder
             error_log('AbraFlexi Cached Status Error: ' . $e->getMessage());
 
             if (!empty($metric)) {
-                echo $this->getDefaultValue($metric);
+                echo $this->getDefaultValue($metric) . "\n";
             } else {
                 $jsonFlags = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES;
                 if ($debugMode) {
@@ -141,9 +141,9 @@ class Feeder
                 $jsonOutput = json_encode([], $jsonFlags);
                 
                 if ($colorMode && $debugMode) {
-                    echo $this->colorizeJson($jsonOutput);
+                    echo $this->colorizeJson($jsonOutput) . "\n";
                 } else {
-                    echo $jsonOutput;
+                    echo $jsonOutput . "\n";
                 }
             }
 
@@ -428,9 +428,9 @@ class Feeder
             $jsonOutput = json_encode($lldData, $jsonFlags);
             
             if ($colorMode && $debugMode) {
-                echo $this->colorizeJson($jsonOutput);
+                echo $this->colorizeJson($jsonOutput) . "\n";
             } else {
-                echo $jsonOutput;
+                echo $jsonOutput . "\n";
             }
 
             $this->exitUnlessTest(0);
@@ -445,9 +445,9 @@ class Feeder
             $jsonOutput = json_encode([], $jsonFlags);
             
             if ($colorMode && $debugMode) {
-                echo $this->colorizeJson($jsonOutput);
+                echo $this->colorizeJson($jsonOutput) . "\n";
             } else {
-                echo $jsonOutput;
+                echo $jsonOutput . "\n";
             }
 
             $this->exitUnlessTest(1);
@@ -468,12 +468,12 @@ class Feeder
                     $jsonFlags = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT;
                     $jsonOutput = json_encode($errorInfo, $jsonFlags);
                     if ($colorMode) {
-                        echo $this->colorizeJson($jsonOutput);
+                        echo $this->colorizeJson($jsonOutput) . "\n";
                     } else {
-                        echo $jsonOutput;
+                        echo $jsonOutput . "\n";
                     }
                 } else {
-                    echo '0'; // Configuration error
+                    echo "0\n"; // Configuration error
                 }
                 $this->exitUnlessTest(3); // EXIT_SERVICE_ERROR
             }
@@ -497,12 +497,12 @@ class Feeder
                         $jsonFlags = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT;
                         $jsonOutput = json_encode($detailedResults['network'], $jsonFlags);
                         if ($colorMode) {
-                            echo $this->colorizeJson($jsonOutput);
+                            echo $this->colorizeJson($jsonOutput) . "\n";
                         } else {
-                            echo $jsonOutput;
+                            echo $jsonOutput . "\n";
                         }
                     } else {
-                        echo $networkResult ? '1' : '0';
+                        echo ($networkResult ? '1' : '0') . "\n";
                     }
                     $this->exitUnlessTest($networkResult ? 0 : 1);
                 }
@@ -525,12 +525,12 @@ class Feeder
                         $jsonFlags = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT;
                         $jsonOutput = json_encode($detailedResults['auth'], $jsonFlags);
                         if ($colorMode) {
-                            echo $this->colorizeJson($jsonOutput);
+                            echo $this->colorizeJson($jsonOutput) . "\n";
                         } else {
-                            echo $jsonOutput;
+                            echo $jsonOutput . "\n";
                         }
                     } else {
-                        echo $authResult ? '1' : '0';
+                        echo ($authResult ? '1' : '0') . "\n";
                     }
                     $this->exitUnlessTest($authResult ? 0 : 2);
                 }
@@ -552,12 +552,12 @@ class Feeder
                         $jsonFlags = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT;
                         $jsonOutput = json_encode($detailedResults['service'], $jsonFlags);
                         if ($colorMode) {
-                            echo $this->colorizeJson($jsonOutput);
+                            echo $this->colorizeJson($jsonOutput) . "\n";
                         } else {
-                            echo $jsonOutput;
+                            echo $jsonOutput . "\n";
                         }
                     } else {
-                        echo $serviceResult ? '1' : '0';
+                        echo ($serviceResult ? '1' : '0') . "\n";
                     }
                     $this->exitUnlessTest($serviceResult ? 0 : 3);
                 }
@@ -578,12 +578,12 @@ class Feeder
                     $jsonFlags = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT;
                     $jsonOutput = json_encode($summaryResults, $jsonFlags);
                     if ($colorMode) {
-                        echo $this->colorizeJson($jsonOutput);
+                        echo $this->colorizeJson($jsonOutput) . "\n";
                     } else {
-                        echo $jsonOutput;
+                        echo $jsonOutput . "\n";
                     }
                 } else {
-                    echo $overallStatus ? '1' : '0';
+                    echo ($overallStatus ? '1' : '0') . "\n";
                 }
 
                 // Exit with most specific error
@@ -608,12 +608,12 @@ class Feeder
                 $jsonFlags = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT;
                 $jsonOutput = json_encode($errorInfo, $jsonFlags);
                 if ($colorMode) {
-                    echo $this->colorizeJson($jsonOutput);
+                    echo $this->colorizeJson($jsonOutput) . "\n";
                 } else {
-                    echo $jsonOutput;
+                    echo $jsonOutput . "\n";
                 }
             } else {
-                echo '0';
+                echo "0\n";
             }
             $this->exitUnlessTest(3);
         }
@@ -809,9 +809,9 @@ class Feeder
                 $jsonOutput = json_encode($status, $jsonFlags);
                 
                 if ($colorMode && $debugMode) {
-                    echo $this->colorizeJson($jsonOutput);
+                    echo $this->colorizeJson($jsonOutput) . "\n";
                 } else {
-                    echo $jsonOutput;
+                    echo $jsonOutput . "\n";
                 }
             }
 
@@ -821,7 +821,7 @@ class Feeder
             error_log('AbraFlexi System Status Error: ' . $e->getMessage());
 
             if (!empty($metric)) {
-                echo $this->getDefaultValue($metric);
+                echo $this->getDefaultValue($metric) . "\n";
             } else {
                 $jsonFlags = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES;
                 if ($debugMode) {
@@ -830,9 +830,9 @@ class Feeder
                 $jsonOutput = json_encode([], $jsonFlags);
                 
                 if ($colorMode && $debugMode) {
-                    echo $this->colorizeJson($jsonOutput);
+                    echo $this->colorizeJson($jsonOutput) . "\n";
                 } else {
-                    echo $jsonOutput;
+                    echo $jsonOutput . "\n";
                 }
             }
 
