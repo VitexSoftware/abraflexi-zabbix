@@ -129,7 +129,9 @@ class Feeder
             }
         } catch (\Exception $e) {
             // Log error and exit with appropriate default
-            error_log('AbraFlexi Cached Status Error: ' . $e->getMessage());
+            if (!$this->testMode) {
+                error_log('AbraFlexi Cached Status Error: ' . $e->getMessage());
+            }
 
             if (!empty($metric)) {
                 echo $this->getDefaultValue($metric) . "\n";
@@ -205,6 +207,9 @@ class Feeder
             }
 
             // Still no cache - throw error to avoid infinite waiting
+            if (!$this->testMode) {
+                error_log('AbraFlexi Zabbix: Could not acquire lock and no cached data available');
+            }
             throw new \Exception('Could not acquire lock and no cached data available');
         }
 
@@ -436,7 +441,9 @@ class Feeder
             $this->exitUnlessTest(0);
         } catch (\Exception $e) {
             // Log error and return empty JSON array for Zabbix
-            error_log('AbraFlexi Zabbix LLD Error: ' . $e->getMessage());
+            if (!$this->testMode) {
+                error_log('AbraFlexi Zabbix LLD Error: ' . $e->getMessage());
+            }
             
             $jsonFlags = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES;
             if ($debugMode) {
@@ -602,7 +609,9 @@ class Feeder
                 $this->exitUnlessTest(0);
             }
         } catch (\Exception $e) {
-            error_log('AbraFlexi Network Check Error: ' . $e->getMessage());
+            if (!$this->testMode) {
+                error_log('AbraFlexi Network Check Error: ' . $e->getMessage());
+            }
             if ($debugMode) {
                 $errorInfo = ['error' => 'Network Check Error: ' . $e->getMessage()];
                 $jsonFlags = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT;
@@ -818,7 +827,9 @@ class Feeder
             exit(0);
         } catch (\Exception $e) {
             // Log error and exit with appropriate default
-            error_log('AbraFlexi System Status Error: ' . $e->getMessage());
+            if (!$this->testMode) {
+                error_log('AbraFlexi System Status Error: ' . $e->getMessage());
+            }
 
             if (!empty($metric)) {
                 echo $this->getDefaultValue($metric) . "\n";
