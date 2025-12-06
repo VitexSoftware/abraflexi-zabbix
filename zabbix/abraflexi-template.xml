@@ -1,562 +1,246 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>6.0</version>
-    <date>2025-12-05T14:30:00Z</date>
-    <groups>
-        <group>
+    <version>7.2</version>
+    <template_groups>
+        <template_group>
             <uuid>748ad4d098d447d492bb935c178a7a6c</uuid>
             <name>Templates/AbraFlexi</name>
-        </group>
-    </groups>
+        </template_group>
+    </template_groups>
+
     <templates>
         <template>
             <uuid>748ad4d098d447d492bb935c178a7a6d</uuid>
             <template>AbraFlexi Server Monitoring</template>
             <name>AbraFlexi Server Monitoring</name>
-            <description>Comprehensive monitoring template for AbraFlexi server including:
-- System metrics from /status.json endpoint
-- Network connectivity and authentication monitoring  
-- Low Level Discovery of companies
-- Granular error detection for faster support response
-- Performance monitoring and alerting</description>
+
+            <description>Monitoring for AbraFlexi server:
+- Network connectivity, authentication and service health
+- System metrics via /status.json
+- LLD discovery of companies
+- Triggering operational issues</description>
+
             <groups>
                 <group>
                     <name>Templates/AbraFlexi</name>
                 </group>
             </groups>
+
+            <!-- Added Template Label -->
+            <tags>
+                <tag>
+                    <tag>label</tag>
+                    <value>AbraFlexi</value>
+                </tag>
+            </tags>
+
+            <!-- ============================= -->
+            <!--            ITEMS              -->
+            <!-- ============================= -->
+
             <items>
-                <!-- Network Health Items -->
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a70</uuid>
                     <name>Network connectivity status</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.network.connectivity</key>
                     <history>30d</history>
                     <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
-                    <description>Tests basic TCP connectivity to AbraFlexi server</description>
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>network</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a71</uuid>
                     <name>Authentication status</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.network.authentication</key>
                     <history>30d</history>
                     <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
-                    <description>Tests API authentication with configured credentials</description>
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>authentication</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a72</uuid>
                     <name>Service health status</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.network.service</key>
                     <history>30d</history>
                     <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
-                    <description>Tests AbraFlexi service health and availability</description>
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>service</value>
-                        </tag>
-                    </tags>
                 </item>
 
-                <!-- System Status Items -->
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a73</uuid>
                     <name>AbraFlexi version</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.version</key>
                     <history>30d</history>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
-                    <description>Current AbraFlexi version</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>system</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a74</uuid>
                     <name>Application server running</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.appServerRunning</key>
                     <history>30d</history>
                     <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
-                    <description>Application server status (1=running, 0=stopped)</description>
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>system</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a75</uuid>
                     <name>System load average</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.systemLoad</key>
                     <history>30d</history>
                     <trends>365d</trends>
                     <value_type>FLOAT</value_type>
-                    <description>Current system load average</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>performance</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a76</uuid>
                     <name>Memory used</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.memoryUsed</key>
                     <history>30d</history>
                     <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
                     <units>B</units>
-                    <description>Current memory usage in bytes</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>performance</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a77</uuid>
                     <name>Memory heap</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.memoryHeap</key>
                     <history>30d</history>
                     <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
                     <units>B</units>
-                    <description>JVM heap memory size in bytes</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>performance</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a78</uuid>
                     <name>Logged users total</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.loggedUser</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
-                    <description>Total number of logged users</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>users</value>
-                        </tag>
-                    </tags>
                 </item>
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a79</uuid>
-                    <name>Logged users (read-only)</name>
-                    <type>ZABBIX_AGENT</type>
-                    <key>abraflexi.system.loggedUserRO</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-                    <description>Number of logged read-only users</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>users</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a80</uuid>
-                    <name>Logged users (read-write)</name>
-                    <type>ZABBIX_AGENT</type>
-                    <key>abraflexi.system.loggedUserRW</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-                    <description>Number of logged read-write users</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>users</value>
-                        </tag>
-                    </tags>
-                </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a81</uuid>
                     <name>Active sessions total</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.sessions</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
-                    <description>Total number of active sessions</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>sessions</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a82</uuid>
                     <name>Bytes read</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.bytesRead</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
                     <units>B</units>
-                    <description>Total bytes read by the server</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>performance</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a83</uuid>
                     <name>Total GC time</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.totalGcTime</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
                     <units>ms</units>
-                    <description>Total garbage collection time in milliseconds</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>performance</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a89</uuid>
-                    <name>API Response time</name>
-                    <type>ZABBIX_AGENT</type>
+                    <name>API response time</name>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.responseTime</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
                     <units>ms</units>
-                    <description>API response time for /status.json endpoint in milliseconds</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>performance</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a84</uuid>
                     <name>Java version</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.javaVersion</key>
-                    <history>30d</history>
-                    <trends>0</trends>
                     <value_type>TEXT</value_type>
-                    <description>Java runtime version</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>system</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a85</uuid>
                     <name>License name</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.licenseName</key>
-                    <history>30d</history>
-                    <trends>0</trends>
                     <value_type>TEXT</value_type>
-                    <description>AbraFlexi license holder name</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>license</value>
-                        </tag>
-                    </tags>
                 </item>
+
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a86</uuid>
                     <name>License variant</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.licenseVariant</key>
-                    <history>30d</history>
-                    <trends>0</trends>
                     <value_type>TEXT</value_type>
-                    <description>AbraFlexi license variant (premium, standard, etc.)</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>license</value>
-                        </tag>
-                    </tags>
-                </item>
-
-                <!-- Configuration Information Items -->
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a87</uuid>
-                    <name>Configuration URL</name>
-                    <type>ZABBIX_AGENT</type>
-                    <key>abraflexi.config.url</key>
-                    <history>30d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <description>Monitored AbraFlexi server URL for configuration transparency</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>configuration</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a88</uuid>
-                    <name>Configuration login</name>
-                    <type>ZABBIX_AGENT</type>
-                    <key>abraflexi.config.login</key>
-                    <history>30d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <description>API username being used for monitoring and troubleshooting</description>
-                    <tags>
-                        <tag>
-                            <tag>component</tag>
-                            <value>configuration</value>
-                        </tag>
-                    </tags>
                 </item>
             </items>
-            
+
+            <!-- ============================= -->
+            <!--        DISCOVERY RULE         -->
+            <!-- ============================= -->
+
             <discovery_rules>
                 <discovery_rule>
                     <uuid>748ad4d098d447d492bb935c178a7a90</uuid>
                     <name>AbraFlexi Companies Discovery</name>
-                    <type>ZABBIX_AGENT</type>
+                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.company.lld</key>
                     <delay>1h</delay>
-                    <description>Discovers all available AbraFlexi companies/databases</description>
+
                     <item_prototypes>
                         <item_prototype>
                             <uuid>748ad4d098d447d492bb935c178a7a91</uuid>
                             <name>Company {#COMPANY_NAME} availability</name>
                             <type>CALCULATED</type>
                             <key>abraflexi.company.available[{#COMPANY_CODE}]</key>
-                            <history>30d</history>
-                            <trends>365d</trends>
                             <value_type>UNSIGNED</value_type>
-                            <params>last(//abraflexi.network.overall)</params>
-                            <description>Availability status for company {#COMPANY_NAME} (DB: {#COMPANY_DB})</description>
-                            <valuemap>
-                                <name>Service state</name>
-                            </valuemap>
-                            <tags>
-                                <tag>
-                                    <tag>component</tag>
-                                    <value>company</value>
-                                </tag>
-                                <tag>
-                                    <tag>company</tag>
-                                    <value>{#COMPANY_CODE}</value>
-                                </tag>
-                            </tags>
+                            <params>
+min(last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity),
+    last(/AbraFlexi Server Monitoring/abraflexi.network.authentication))
+                            </params>
                         </item_prototype>
                     </item_prototypes>
+
                     <trigger_prototypes>
                         <trigger_prototype>
                             <uuid>748ad4d098d447d492bb935c178a7a95</uuid>
                             <expression>last(/AbraFlexi Server Monitoring/abraflexi.company.available[{#COMPANY_CODE}])=0</expression>
                             <name>AbraFlexi company {#COMPANY_NAME} is unavailable</name>
                             <priority>HIGH</priority>
-                            <description>Company {#COMPANY_NAME} (database: {#COMPANY_DB}) is not accessible. This could indicate network issues, service downtime, authentication problems, or company deletion.</description>
-                            <tags>
-                                <tag>
-                                    <tag>scope</tag>
-                                    <value>availability</value>
-                                </tag>
-                                <tag>
-                                    <tag>company</tag>
-                                    <value>{#COMPANY_CODE}</value>
-                                </tag>
-                            </tags>
                         </trigger_prototype>
                     </trigger_prototypes>
                 </discovery_rule>
             </discovery_rules>
 
-            <triggers>
-                <!-- Network Issues - Immediate alerting -->
-                <trigger>
-                    <uuid>748ad4d098d447d492bb935c178a7aa0</uuid>
-                    <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity)=0</expression>
-                    <name>AbraFlexi server network connectivity failure</name>
-                    <priority>DISASTER</priority>
-                    <description>Cannot establish TCP connection to AbraFlexi server. Check network connectivity, server availability, and firewall rules.</description>
-                    <tags>
-                        <tag>
-                            <tag>scope</tag>
-                            <value>network</value>
-                        </tag>
-                    </tags>
-                </trigger>
-
-                <!-- Authentication Issues -->
-                <trigger>
-                    <uuid>748ad4d098d447d492bb935c178a7aa1</uuid>
-                    <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.authentication)=0 and last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity)=1</expression>
-                    <name>AbraFlexi authentication failure</name>
-                    <priority>HIGH</priority>
-                    <description>Network connectivity is OK but authentication failed. Check credentials, user permissions, or account status.</description>
-                    <dependencies>
-                        <dependency>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity)=0</expression>
-                        </dependency>
-                    </dependencies>
-                    <tags>
-                        <tag>
-                            <tag>scope</tag>
-                            <value>authentication</value>
-                        </tag>
-                    </tags>
-                </trigger>
-
-                <!-- Service Health Issues -->
-                <trigger>
-                    <uuid>748ad4d098d447d492bb935c178a7aa2</uuid>
-                    <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.service)=0 and last(/AbraFlexi Server Monitoring/abraflexi.network.authentication)=1</expression>
-                    <name>AbraFlexi service health check failure</name>
-                    <priority>HIGH</priority>
-                    <description>Authentication successful but service health check failed. AbraFlexi application may be starting up, shutting down, or experiencing internal errors.</description>
-                    <dependencies>
-                        <dependency>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity)=0</expression>
-                        </dependency>
-                        <dependency>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.authentication)=0 and last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity)=1</expression>
-                        </dependency>
-                    </dependencies>
-                    <tags>
-                        <tag>
-                            <tag>scope</tag>
-                            <value>service</value>
-                        </tag>
-                    </tags>
-                </trigger>
-
-                <!-- Application Server Status -->
-                <trigger>
-                    <uuid>748ad4d098d447d492bb935c178a7aa3</uuid>
-                    <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.appServerRunning)=0</expression>
-                    <name>AbraFlexi application server is not running</name>
-                    <priority>DISASTER</priority>
-                    <description>AbraFlexi application server status indicates it's not running. Immediate attention required.</description>
-                    <tags>
-                        <tag>
-                            <tag>scope</tag>
-                            <value>service</value>
-                        </tag>
-                    </tags>
-                </trigger>
-
-                <!-- Performance Issues -->
-                <trigger>
-                    <uuid>748ad4d098d447d492bb935c178a7aa4</uuid>
-                    <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.systemLoad)&gt;5</expression>
-                    <name>AbraFlexi server high system load</name>
-                    <priority>WARNING</priority>
-                    <description>System load is above 5.0. Server may be experiencing performance issues.</description>
-                    <tags>
-                        <tag>
-                            <tag>scope</tag>
-                            <value>performance</value>
-                        </tag>
-                    </tags>
-                </trigger>
-
-                <trigger>
-                    <uuid>748ad4d098d447d492bb935c178a7aa5</uuid>
-                    <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.memoryUsed)/last(/AbraFlexi Server Monitoring/abraflexi.system.memoryHeap)&gt;0.9</expression>
-                    <name>AbraFlexi high memory usage</name>
-                    <priority>WARNING</priority>
-                    <description>Memory usage is above 90% of heap size. Consider increasing heap size or investigating memory leaks.</description>
-                    <tags>
-                        <tag>
-                            <tag>scope</tag>
-                            <value>performance</value>
-                        </tag>
-                    </tags>
-                </trigger>
-
-                <trigger>
-                    <uuid>748ad4d098d447d492bb935c178a7aa7</uuid>
-                    <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.responseTime)&gt;5000</expression>
-                    <name>AbraFlexi high API response time</name>
-                    <priority>WARNING</priority>
-                    <description>API response time is above 5 seconds. This may indicate server performance issues or network latency.</description>
-                    <tags>
-                        <tag>
-                            <tag>scope</tag>
-                            <value>performance</value>
-                        </tag>
-                    </tags>
-                </trigger>
-
-                <!-- User Activity Monitoring -->
-                <trigger>
-                    <uuid>748ad4d098d447d492bb935c178a7aa8</uuid>
-                    <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.loggedUser)&gt;100</expression>
-                    <name>AbraFlexi high number of logged users</name>
-                    <priority>INFO</priority>
-                    <description>More than 100 users are currently logged in. Monitor for potential license or performance issues.</description>
-                    <tags>
-                        <tag>
-                            <tag>scope</tag>
-                            <value>users</value>
-                        </tag>
-                    </tags>
-                </trigger>
-            </triggers>
+            <!-- ============================= -->
+            <!--          VALUEMAPS           -->
+            <!-- ============================= -->
 
             <valuemaps>
                 <valuemap>
