@@ -79,32 +79,35 @@ distributions.each { distro ->
                             
                             echo "Setting up Zabbix repository for $DISTRO_ID $DISTRO_CODE"
                             
-                            # Add Zabbix repository key
-                            wget -q https://repo.zabbix.com/zabbix-official-repo.key -O- | sudo apt-key add -
+                            # Add Zabbix repository key using modern approach
+                            wget -q https://repo.zabbix.com/zabbix-official-repo.key -O /tmp/zabbix.key
+                            sudo mkdir -p /etc/apt/keyrings
+                            sudo cp /tmp/zabbix.key /etc/apt/keyrings/zabbix.asc
+                            rm -f /tmp/zabbix.key
                             
                             # Add repository based on distribution
                             if [ "$DISTRO_ID" = "debian" ]; then
                                 case "$DISTRO_CODE" in
                                     bookworm) 
-                                        echo "deb https://repo.zabbix.com/zabbix/7.0/debian bookworm main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/debian bookworm main" | sudo tee /etc/apt/sources.list.d/zabbix.list
                                         ;;
                                     trixie|forky) 
-                                        echo "deb https://repo.zabbix.com/zabbix/7.0/debian bookworm main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/debian bookworm main" | sudo tee /etc/apt/sources.list.d/zabbix.list
                                         ;;
                                     *) 
-                                        echo "deb https://repo.zabbix.com/zabbix/7.0/debian bookworm main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/debian bookworm main" | sudo tee /etc/apt/sources.list.d/zabbix.list
                                         ;;
                                 esac
                             elif [ "$DISTRO_ID" = "ubuntu" ]; then
                                 case "$DISTRO_CODE" in
                                     jammy) 
-                                        echo "deb https://repo.zabbix.com/zabbix/7.0/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/zabbix.list
                                         ;;
                                     noble) 
-                                        echo "deb https://repo.zabbix.com/zabbix/7.0/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/zabbix.list
                                         ;;
                                     *) 
-                                        echo "deb https://repo.zabbix.com/zabbix/7.0/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/zabbix.list
+                                        echo "deb [signed-by=/etc/apt/keyrings/zabbix.asc] https://repo.zabbix.com/zabbix/7.0/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/zabbix.list
                                         ;;
                                 esac
                             fi
