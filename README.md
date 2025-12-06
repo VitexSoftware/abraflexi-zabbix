@@ -70,6 +70,115 @@ Comprehensive monitoring solution for AbraFlexi server using Zabbix with Low Lev
    - Upload `zabbix/abraflexi-template.xml`
    - Apply template to your AbraFlexi server host
 
+## Zabbix Template
+
+The `zabbix/abraflexi-template.xml` file is a comprehensive Zabbix 7.2 template that provides complete monitoring for AbraFlexi servers.
+
+### Template Contents
+
+#### 📊 Monitoring Items (18 items)
+
+**Network Health Checks:**
+- `abraflexi.network.connectivity` - TCP connectivity status (0/1)
+- `abraflexi.network.authentication` - API authentication status (0/1)
+- `abraflexi.network.service` - Service health status (0/1)
+
+**System Metrics:**
+- `abraflexi.system.version` - AbraFlexi version string
+- `abraflexi.system.version.numeric` - Numeric version for comparison (dependent item)
+- `abraflexi.system.appServerRunning` - Application server running status (0/1)
+- `abraflexi.system.systemLoad` - System load average (float)
+- `abraflexi.system.memoryUsed` - Memory used in bytes
+- `abraflexi.system.memoryHeap` - JVM heap size in bytes
+- `abraflexi.system.memoryUsagePercent` - Calculated memory usage percentage
+- `abraflexi.system.loggedUser` - Number of logged users
+- `abraflexi.system.sessions` - Number of active sessions
+- `abraflexi.system.bytesRead` - Total bytes read
+- `abraflexi.system.totalGcTime` - Total garbage collection time (ms)
+- `abraflexi.system.responseTime` - API response time (ms)
+- `abraflexi.system.javaVersion` - Java runtime version
+- `abraflexi.system.licenseName` - License name
+- `abraflexi.system.licenseVariant` - License variant/type
+
+#### 🚨 Triggers (15 triggers)
+
+**Critical/Disaster Priority:**
+- Network connectivity failure
+- Authentication failure
+- Service health check failure
+- Application server down
+
+**High Priority:**
+- Critical system load (> 10.0)
+- Critical memory usage (> 95%)
+- Critical number of logged users (> 100)
+- Critical number of active sessions (> 150)
+- Company unavailable (per discovered company)
+
+**Warning Priority:**
+- High system load (> 5.0)
+- High memory usage (> 85%)
+- High number of logged users (> 50)
+- High number of active sessions (> 75)
+- Slow API response time (> 5000ms)
+
+**Info Priority:**
+- AbraFlexi version updated
+- AbraFlexi version downgraded
+
+#### 🔍 Discovery Rules
+
+**Company Discovery (LLD):**
+- `abraflexi.company.lld` - Discovers all AbraFlexi companies/databases
+- Runs every 1 hour
+- Creates item prototypes for each discovered company:
+  - `abraflexi.company.available[{#COMPANY_CODE}]` - Company availability status
+- Creates trigger prototypes:
+  - Company unavailability alerts (High priority)
+
+#### 🎨 Dashboard: "AbraFlexi Server Overview"
+
+> **Note:** Dashboards cannot be included in Zabbix templates because they require host-specific references. After importing the template and applying it to your AbraFlexi server host, you can create a custom dashboard manually using the items from the template.
+
+**Recommended Dashboard Layout:**
+
+**Page 1: System Health**
+- Row 1: Status indicators (Network, Authentication, App Server, Version)
+- Row 2: System Load and Memory Usage graphs
+- Row 3: Memory details (Used vs Heap) and GC Time
+- Row 4: Problems widget showing all active alerts
+
+**Page 2: Performance**
+- Row 1: API Response Time graph with current value indicators
+- Row 2: Logged Users and Active Sessions graphs
+- Row 3: Current values (Users, Sessions, Java Version)
+
+**Page 3: Network & License**
+- Row 1: Network Connectivity and Authentication graphs
+- Row 2: Service Health Status (full-width)
+- Row 3: License information (Name and Variant)
+
+To create the dashboard, go to **Monitoring → Dashboards → Create dashboard** in Zabbix and add widgets referencing the items from your AbraFlexi host.
+
+#### 🗺️ Value Maps
+
+**Service State:**
+- `0` → "Down"
+- `1` → "Up"
+
+Used by network connectivity, authentication, service health, and app server status items.
+
+### Template Features
+
+- **Zabbix Version**: 7.2
+- **Template Group**: Templates/AbraFlexi
+- **Tags**: `label:AbraFlexi`
+- **History Retention**: 30 days for most items
+- **Trends Retention**: 365 days for numeric items
+- **Update Interval**: 1 minute for most items (configurable)
+- **Intelligent Caching**: 30-second cache reduces API load by 73%
+
+
 ## Configuration
 
 ### Environment Variables

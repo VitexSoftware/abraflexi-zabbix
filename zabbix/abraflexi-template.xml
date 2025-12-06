@@ -121,7 +121,7 @@
                     <trends>365d</trends>
                     <value_type>UNSIGNED</value_type>
                     <master_item>
-                        <key>abraflexi.system.version</key>
+                    <key>abraflexi.system.version</key>
                     </master_item>
                     <preprocessing>
                         <step>
@@ -369,7 +369,7 @@ return 0;</parameter>
                             <uuid>748ad4d098d447d492bb935c178a7a91</uuid>
                             <name>Company {#COMPANY_NAME} availability</name>
                             <type>CALCULATED</type>
-                            <key>abraflexi.company.available[{#COMPANY_CODE}]</key>
+                    <key>abraflexi.company.available[{#COMPANY_CODE}]</key>
                             <value_type>UNSIGNED</value_type>
                             <params>
 min(last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity),
@@ -390,7 +390,6 @@ min(last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity),
             </discovery_rules>
 
             <!-- ============================= -->
-            <!--          VALUEMAPS           -->
             <!-- ============================= -->
 
             <valuemaps>
@@ -409,6 +408,8 @@ min(last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity),
                     </mappings>
                 </valuemap>
             </valuemaps>
+
         </template>
     </templates>
 </zabbix_export>
+
