@@ -112,6 +112,42 @@
                     <value_type>TEXT</value_type>
                 </item>
                 <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b01</uuid>
+                    <name>Latest testing version available</name>
+                    <type>EXTERNAL_SCRIPT</type>
+                    <key>abraflexi.update.latestTesting</key>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <params>abraflexi-update-check.sh</params>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.latestTesting</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b02</uuid>
+                    <name>Latest production version available</name>
+                    <type>EXTERNAL_SCRIPT</type>
+                    <key>abraflexi.update.latestProduction</key>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <params>abraflexi-update-check.sh</params>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.latestProduction</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
                     <uuid>748ad4d098d447d492bb935c178a7ada</uuid>
                     <name>AbraFlexi version numeric</name>
                     <type>DEPENDENT</type>
@@ -138,6 +174,20 @@ return 0;</parameter>
                             </parameters>
                         </step>
                     </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7b11</uuid>
+                            <expression>str({AbraFlexi Server Monitoring:abraflexi.system.version.last()})&lt;&gt;str({AbraFlexi Server Monitoring:abraflexi.update.latestTesting.last()}) and str({AbraFlexi Server Monitoring:abraflexi.update.latestTesting.last()})&lt;&gt;"unknown"</expression>
+                            <name>New testing version of AbraFlexi available</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7b12</uuid>
+                            <expression>str({AbraFlexi Server Monitoring:abraflexi.system.version.last()})&lt;&gt;str({AbraFlexi Server Monitoring:abraflexi.update.latestProduction.last()}) and str({AbraFlexi Server Monitoring:abraflexi.update.latestProduction.last()})&lt;&gt;"unknown"</expression>
+                            <name>New production version of AbraFlexi available</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac0</uuid>
@@ -378,6 +428,23 @@ min(last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity),
                         </item_prototype>
                     </item_prototypes>
 
+
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <uuid>748ad4d098d447d492bb935c178a7a96</uuid>
+                            <name>Company {#COMPANY_NAME} Availability</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>AbraFlexi Server Monitoring</host>
+                                        <key>abraflexi.company.available[{#COMPANY_CODE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+
                     <trigger_prototypes>
                         <trigger_prototype>
                             <uuid>748ad4d098d447d492bb935c178a7a95</uuid>
@@ -412,4 +479,3 @@ min(last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity),
         </template>
     </templates>
 </zabbix_export>
-

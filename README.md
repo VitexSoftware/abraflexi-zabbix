@@ -135,30 +135,36 @@ The `zabbix/abraflexi-template.xml` file is a comprehensive Zabbix 7.2 template 
   - `abraflexi.company.available[{#COMPANY_CODE}]` - Company availability status
 - Creates trigger prototypes:
   - Company unavailability alerts (High priority)
+- Creates graph prototypes:
+  - **Company {#COMPANY_NAME} Availability** - Automatic graph for each company showing availability over time
 
-#### 🎨 Dashboard: "AbraFlexi Server Overview"
+#### 📊 Visualizing Data
 
-> **Note:** Dashboards cannot be included in Zabbix templates because they require host-specific references. After importing the template and applying it to your AbraFlexi server host, you can create a custom dashboard manually using the items from the template.
+**Graph Prototypes (Automatic):**
+- Each discovered company automatically gets an availability graph
+- View at: **Monitoring → Hosts → [Your Host] → Graphs**
 
-**Recommended Dashboard Layout:**
+**Creating Custom Graphs:**
+To visualize system metrics, create graphs manually in Zabbix:
 
-**Page 1: System Health**
-- Row 1: Status indicators (Network, Authentication, App Server, Version)
-- Row 2: System Load and Memory Usage graphs
-- Row 3: Memory details (Used vs Heap) and GC Time
-- Row 4: Problems widget showing all active alerts
+1. Go to **Data collection → Hosts**
+2. Click on your AbraFlexi host
+3. Click **Graphs → Create graph**
+4. Add items you want to visualize (e.g., Memory Usage, System Load, API Response Time)
 
-**Page 2: Performance**
-- Row 1: API Response Time graph with current value indicators
-- Row 2: Logged Users and Active Sessions graphs
-- Row 3: Current values (Users, Sessions, Java Version)
+**Recommended Graphs:**
+- **System Performance**: `abraflexi.system.systemLoad`
+- **Memory Usage**: `abraflexi.system.memoryUsed` + `abraflexi.system.memoryHeap`
+- **Memory %**: `abraflexi.system.memoryUsagePercent`
+- **Network Health**: `abraflexi.network.connectivity` + `abraflexi.network.authentication` + `abraflexi.network.service`
+- **User Activity**: `abraflexi.system.loggedUser` + `abraflexi.system.sessions`
+- **API Performance**: `abraflexi.system.responseTime`
 
-**Page 3: Network & License**
-- Row 1: Network Connectivity and Authentication graphs
-- Row 2: Service Health Status (full-width)
-- Row 3: License information (Name and Variant)
-
-To create the dashboard, go to **Monitoring → Dashboards → Create dashboard** in Zabbix and add widgets referencing the items from your AbraFlexi host.
+**Creating Dashboards:**
+Create custom dashboards in Zabbix UI:
+1. Go to **Monitoring → Dashboards → Create dashboard**
+2. Add widgets (graphs, problems, item values, etc.)
+3. Reference items from your AbraFlexi host
 
 #### 🗺️ Value Maps
 

@@ -189,6 +189,12 @@ class Feeder
      */
     private function fetchAndCacheData(): array
     {
+        // Ensure lock directory exists in case it was removed after construction (e.g. in tests)
+        $lockDir = dirname($this->lockFile);
+        if (!is_dir($lockDir)) {
+            @mkdir($lockDir, 0o755, true);
+        }
+
         // Acquire lock to prevent multiple concurrent requests
         $lockHandle = fopen($this->lockFile, 'cb');
 
