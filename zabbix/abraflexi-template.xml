@@ -165,16 +165,8 @@
                     <history>30d</history>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
-                    <params>abraflexi-update-check.sh</params>
-                    <preprocessing>
-                        <step>
-                            <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.latestTesting</parameter>
-                            </parameters>
-                        </step>
-                    </preprocessing>
-
+                    <params>abraflexi-update-testing.sh</params>
+                    
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -222,16 +214,8 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                     <history>30d</history>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
-                    <params>abraflexi-update-check.sh</params>
-                    <preprocessing>
-                        <step>
-                            <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.latestProduction</parameter>
-                            </parameters>
-                        </step>
-                    </preprocessing>
-
+                    <params>abraflexi-update-production.sh</params>
+                    
                     <tags>
                         <tag>
                             <tag>Application</tag>

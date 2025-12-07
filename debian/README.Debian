@@ -29,9 +29,9 @@ INSTALLATION
 
 4. Test the configuration:
    
-   sudo zabbix_agentd -t abraflexi.company.lld
-   sudo zabbix_agentd -t abraflexi.system.version
-   sudo zabbix_agentd -t abraflexi.network.connectivity
+   sudo -u zabbix zabbix_agent2 -t abraflexi.company.lld
+   sudo -u zabbix zabbix_agent2 -t abraflexi.system.version
+   sudo -u zabbix zabbix_agent2 -t abraflexi.network.connectivity
 
 FEATURES
 ========
@@ -49,7 +49,7 @@ FILES
 
 Configuration:
 - /etc/abraflexi-zabbix/.env - Connection settings (create this file)
-- /etc/zabbix/zabbix_agentd.d/abraflexi.conf - Zabbix user parameters
+- /etc/zabbix/zabbix_agent2.d/abraflexi.conf - Zabbix user parameters
 
 Scripts:
 - /usr/lib/abraflexi-zabbix/company_lld.php - Company discovery
@@ -67,10 +67,10 @@ TROUBLESHOOTING
    php /usr/lib/abraflexi-zabbix/company_lld.php
 
 2. Test Zabbix agent items:
-   zabbix_agentd -t abraflexi.network.overall
+   sudo -u zabbix zabbix_agent2 -t abraflexi.network.overall
 
 3. Check logs:
-   tail -f /var/log/zabbix/zabbix_agentd.log
+   tail -f /var/log/zabbix/zabbix_agent2.log
    tail -f /var/log/syslog | grep abraflexi
 
 4. Verify permissions:
@@ -81,3 +81,28 @@ SUPPORT
 
 GitHub: https://github.com/VitexSoftware/abraflexi-zabbix
 Documentation: See README.md in the source repository
+
+
+Zabbix version support
+----------------------
+This package supports only Zabbix Agent 2 (zabbix-agent2, Zabbix 7.x and newer).
+Legacy zabbix-agent (zabbix_agentd) is not supported and no configuration is
+installed into /etc/zabbix/zabbix_agentd.d/.
+
+
+Update check items
+==================
+
+The package provides external scripts and agent2 items to monitor latest available
+AbraFlexi versions from Vitex testing and official production repositories:
+
+- /usr/lib/zabbix/externalscripts/abraflexi-update-testing.sh
+- /usr/lib/zabbix/externalscripts/abraflexi-update-production.sh
+
+These are exposed via agent2 user parameters in /etc/zabbix/zabbix_agent2.d/abraflexi.conf:
+
+- abraflexi.update.latestTesting
+- abraflexi.update.latestProduction
+
+The Zabbix template also contains dependent numeric items and triggers that compare
+current AbraFlexi version with these latest available versions.

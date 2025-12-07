@@ -417,3 +417,18 @@ MIT License - see LICENSE file for details.
 - **AbraFlexi Documentation**: [FlexiBee API](https://www.flexibee.eu/api/)
 - **Zabbix LLD Documentation**: [Low Level Discovery](https://www.zabbix.com/documentation/current/en/manual/discovery/low_level_discovery)
 
+
+
+## Update monitoring
+
+The template and agent configuration include items that track the latest available
+AbraFlexi versions from both Vitex testing and official production repositories:
+
+- `abraflexi.update.latestTesting` / `abraflexi.update.latestTesting.numeric`
+- `abraflexi.update.latestProduction` / `abraflexi.update.latestProduction.numeric`
+
+The numeric items are derived from the text versions and used in triggers that raise
+alerts when your running AbraFlexi version is older than the latest testing or
+production release. Data are obtained via external scripts installed as
+`/usr/lib/zabbix/externalscripts/abraflexi-update-testing.sh` and
+`/usr/lib/zabbix/externalscripts/abraflexi-update-production.sh`.
