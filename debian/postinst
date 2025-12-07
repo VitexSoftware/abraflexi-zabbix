@@ -48,17 +48,14 @@ EOF
         fi
         
         # Set proper permissions for scripts
-        chmod +x /usr/lib/abraflexi-zabbix/company_lld.php
-        chmod +x /usr/lib/abraflexi-zabbix/system_status.php
-        chmod +x /usr/lib/abraflexi-zabbix/cached_system_status.php
-        chmod +x /usr/lib/abraflexi-zabbix/network_check.php
         chmod +x /usr/bin/abraflexi-zabbix-lld-company
         chmod +x /usr/bin/abraflexi-zabbix-status
         chmod +x /usr/bin/abraflexi-zabbix-network
-        
+        chmod +x /usr/lib/zabbix/externalscripts/abraflexi-update-check.sh 2>/dev/null || true
+
         # Set proper permissions for Feeder class
         chmod 644 /usr/lib/abraflexi-zabbix/AbraFlexi/Zabbix/Feeder.php
-        
+
         # Set proper ownership
         chown -R zabbix:zabbix /usr/lib/abraflexi-zabbix/ 2>/dev/null || true
         
