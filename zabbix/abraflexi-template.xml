@@ -53,7 +53,7 @@
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7acc</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity)=0</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.network.connectivity)=0</expression>
                             <name>AbraFlexi network connectivity failed</name>
                             <priority>DISASTER</priority>
                         </trigger>
@@ -74,7 +74,7 @@
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7acd</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.authentication)=0</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.network.authentication)=0</expression>
                             <name>AbraFlexi authentication failed</name>
                             <priority>HIGH</priority>
                         </trigger>
@@ -95,7 +95,7 @@
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ace</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.service)=0</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.network.service)=0</expression>
                             <name>AbraFlexi service health check failed</name>
                             <priority>HIGH</priority>
                         </trigger>
@@ -189,13 +189,13 @@ return 0;</parameter>
                         </trigger>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac0</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&amp;gt;prev(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.version.numeric)&amp;gt;prev(/{HOST.NAME}/abraflexi.system.version.numeric)</expression>
                             <name>AbraFlexi was updated</name>
                             <priority>INFO</priority>
                         </trigger>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac1</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&amp;lt;prev(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.version.numeric)&amp;lt;prev(/{HOST.NAME}/abraflexi.system.version.numeric)</expression>
                             <name>AbraFlexi was downgraded</name>
                             <priority>WARNING</priority>
                         </trigger>
@@ -216,7 +216,7 @@ return 0;</parameter>
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac3</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.appServerRunning)=0</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.appServerRunning)=0</expression>
                             <name>AbraFlexi application server is down</name>
                             <priority>DISASTER</priority>
                         </trigger>
@@ -234,13 +234,13 @@ return 0;</parameter>
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac4</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.systemLoad) &gt; 5.0</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.systemLoad) &gt; 5.0</expression>
                             <name>High system load</name>
                             <priority>WARNING</priority>
                         </trigger>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac5</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.systemLoad) &gt; 10.0</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.systemLoad) &gt; 10.0</expression>
                             <name>Critical system load</name>
                             <priority>HIGH</priority>
                         </trigger>
@@ -279,17 +279,17 @@ return 0;</parameter>
                     <trends>365d</trends>
                     <value_type>FLOAT</value_type>
                     <units>%</units>
-                    <params>last(/AbraFlexi Server Monitoring/abraflexi.system.memoryUsed) / last(/AbraFlexi Server Monitoring/abraflexi.system.memoryHeap) * 100</params>
+                    <params>last(//abraflexi.system.memoryUsed) / last(//abraflexi.system.memoryHeap) * 100</params>
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac6</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.memoryUsagePercent) &gt; 85</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.memoryUsagePercent) &gt; 85</expression>
                             <name>High memory usage</name>
                             <priority>WARNING</priority>
                         </trigger>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac7</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.memoryUsagePercent) &gt; 95</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.memoryUsagePercent) &gt; 95</expression>
                             <name>Critical memory usage</name>
                             <priority>HIGH</priority>
                         </trigger>
@@ -305,13 +305,13 @@ return 0;</parameter>
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac8</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.loggedUser) &gt; 50</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.loggedUser) &gt; 50</expression>
                             <name>High number of logged users</name>
                             <priority>WARNING</priority>
                         </trigger>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac9</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.loggedUser) &gt; 100</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.loggedUser) &gt; 100</expression>
                             <name>Critical number of logged users</name>
                             <priority>HIGH</priority>
                         </trigger>
@@ -327,13 +327,13 @@ return 0;</parameter>
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7aca</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.sessions) &gt; 75</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.sessions) &gt; 75</expression>
                             <name>High number of active sessions</name>
                             <priority>WARNING</priority>
                         </trigger>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7acb</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.sessions) &gt; 150</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.sessions) &gt; 150</expression>
                             <name>Critical number of active sessions</name>
                             <priority>HIGH</priority>
                         </trigger>
@@ -368,7 +368,7 @@ return 0;</parameter>
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac2</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.responseTime) &amp;gt; 5000</expression>
+                            <expression>last(/{HOST.NAME}/abraflexi.system.responseTime) &amp;gt; 5000</expression>
                             <name>Slow API response time</name>
                             <priority>WARNING</priority>
                         </trigger>
@@ -420,8 +420,8 @@ return 0;</parameter>
                     <key>abraflexi.company.available[{#COMPANY_CODE}]</key>
                             <value_type>UNSIGNED</value_type>
                             <params>
-min(last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity),
-    last(/AbraFlexi Server Monitoring/abraflexi.network.authentication))
+min(last(//abraflexi.network.connectivity),
+    last(//abraflexi.network.authentication))
                             </params>
                         </item_prototype>
                     </item_prototypes>
@@ -443,18 +443,11 @@ min(last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity),
                         </graph_prototype>
                     </graph_prototypes>
 
-                    <trigger_prototypes>
-                        <trigger_prototype>
-                            <uuid>748ad4d098d447d492bb935c178a7a95</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.company.available[{#COMPANY_CODE}])=0</expression>
-                            <name>AbraFlexi company {#COMPANY_NAME} is unavailable</name>
-                            <priority>HIGH</priority>
-                        </trigger_prototype>
-                    </trigger_prototypes>
                 </discovery_rule>
             </discovery_rules>
 
             <!-- ============================= -->
+            <!--         VALUE MAPS           -->
             <!-- ============================= -->
 
             <valuemaps>
@@ -476,4 +469,6 @@ min(last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity),
 
         </template>
     </templates>
+
+
 </zabbix_export>
