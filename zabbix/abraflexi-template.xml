@@ -114,7 +114,7 @@
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7b01</uuid>
                     <name>Latest testing version available</name>
-                    <type>EXTERNAL_SCRIPT</type>
+                    <type>EXTERNAL</type>
                     <key>abraflexi.update.latestTesting</key>
                     <history>30d</history>
                     <trends>0</trends>
@@ -132,7 +132,7 @@
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7b02</uuid>
                     <name>Latest production version available</name>
-                    <type>EXTERNAL_SCRIPT</type>
+                    <type>EXTERNAL</type>
                     <key>abraflexi.update.latestProduction</key>
                     <history>30d</history>
                     <trends>0</trends>
@@ -187,8 +187,6 @@ return 0;</parameter>
                             <name>New production version of AbraFlexi available</name>
                             <priority>WARNING</priority>
                         </trigger>
-                    </triggers>
-                    <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac0</uuid>
                             <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&amp;gt;prev(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)</expression>
