@@ -18,10 +18,13 @@ case "$1" in
         db_get abraflexi-zabbix/abraflexi_password
         ABRAFLEXI_PASSWORD="$RET"
         
-        # Create .env file with user-provided values
-        cat > /etc/abraflexi-zabbix/.env << EOF
+        # Create or update .env file only on first install or explicit reconfigure
+        # - First install: /etc/abraflexi-zabbix/.env does not exist yet
+        # - dpkg-reconfigure: DEBCONF_RECONFIGURE=1
+        if [ ! -f /etc/abraflexi-zabbix/.env ] || [ "${DEBCONF_RECONFIGURE:-}" = "1" ]; then
+            cat > /etc/abraflexi-zabbix/.env << EOF
 # AbraFlexi Zabbix Monitoring Configuration
-# Generated during package installation
+# Generated during package installation or reconfiguration
 
 # AbraFlexi server URL (required)
 ABRAFLEXI_URL=$ABRAFLEXI_URL
@@ -36,10 +39,13 @@ ABRAFLEXI_PASSWORD=$ABRAFLEXI_PASSWORD
 # Optional: Debug mode (uncomment for verbose logging)
 # DEBUG=1
 EOF
+        fi
 
-        # Set proper ownership and permissions for .env file
-        chown root:zabbix /etc/abraflexi-zabbix/.env 2>/dev/null || true
-        chmod 640 /etc/abraflexi-zabbix/.env
+        # Set proper ownership and permissions for .env file if it exists
+        if [ -f /etc/abraflexi-zabbix/.env ]; then
+            chown root:zabbix /etc/abraflexi-zabbix/.env 2>/dev/null || true
+            chmod 640 /etc/abraflexi-zabbix/.env
+        fi
         
         # Set proper permissions for scripts
         chmod +x /usr/lib/abraflexi-zabbix/company_lld.php
