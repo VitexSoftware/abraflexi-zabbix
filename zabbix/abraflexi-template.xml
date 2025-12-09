@@ -7,64 +7,28 @@
             <name>Templates/AbraFlexi</name>
         </template_group>
     </template_groups>
-
     <templates>
         <template>
             <uuid>748ad4d098d447d492bb935c178a7a6d</uuid>
-            <template>AbraFlexi Server Monitoring</template>
-            <name>AbraFlexi Server Monitoring</name>
-
+            <template>Remote AbraFlexi Server Monitoring</template>
+            <name>Remote AbraFlexi Server Monitoring</name>
             <description>Monitoring for AbraFlexi server:
 - Network connectivity, authentication and service health
 - System metrics via /status.json
 - LLD discovery of companies
 - Triggering operational issues</description>
-
             <groups>
                 <group>
                     <name>Templates/AbraFlexi</name>
                 </group>
             </groups>
-
-            <!-- Added Template Label -->
-            <tags>
-                <tag>
-                    <tag>label</tag>
-                    <value>AbraFlexi</value>
-                </tag>
-            </tags>
-
-            <!-- ============================= -->
-            <!--            ITEMS              -->
-            <!-- ============================= -->
-
             <items>
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a70</uuid>
-                    <name>Network connectivity status</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.network.connectivity</key>
+                    <uuid>748ad4d098d447d492bb935c178a7b1b</uuid>
+                    <name>Configuration login</name>
+                    <key>abraflexi.config.login</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-                    <valuemap>
-                        <name>Service state</name>
-                    </valuemap>
-                    <triggers>
-                        <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7acc</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.connectivity)=0</expression>
-                            <name>AbraFlexi network connectivity failed</name>
-                            <priority>DISASTER</priority>
-                            <tags>
-                                <tag>
-                                    <tag>Application</tag>
-                                    <value>AbraFlexi</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                    </triggers>
-
+                    <value_type>TEXT</value_type>
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -72,22 +36,37 @@
                         </tag>
                     </tags>
                 </item>
-
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b1a</uuid>
+                    <name>Configuration URL</name>
+                    <key>abraflexi.config.url</key>
+                    <history>30d</history>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a71</uuid>
                     <name>Authentication status</name>
-                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.network.authentication</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7acd</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.authentication)=0</expression>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.network.authentication)=0</expression>
                             <name>AbraFlexi authentication failed</name>
                             <priority>HIGH</priority>
                             <tags>
@@ -98,7 +77,44 @@
                             </tags>
                         </trigger>
                     </triggers>
-
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7a70</uuid>
+                    <name>Network connectivity status</name>
+                    <key>abraflexi.network.connectivity</key>
+                    <history>30d</history>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7acc</uuid>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.network.connectivity)=0</expression>
+                            <name>AbraFlexi network connectivity failed</name>
+                            <priority>DISASTER</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>AbraFlexi</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b1c</uuid>
+                    <name>Network overall status</name>
+                    <key>abraflexi.network.overall</key>
+                    <history>30d</history>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -106,22 +122,24 @@
                         </tag>
                     </tags>
                 </item>
-
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a72</uuid>
                     <name>Service health status</name>
-                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.network.service</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ace</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.network.service)=0</expression>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.network.service)=0</expression>
                             <name>AbraFlexi service health check failed</name>
                             <priority>HIGH</priority>
                             <tags>
@@ -132,227 +150,25 @@
                             </tags>
                         </trigger>
                     </triggers>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
                 </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a73</uuid>
-                    <name>AbraFlexi version</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.version</key>
-                    <history>30d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b01</uuid>
-                    <name>Latest testing version available</name>
-                    <type>EXTERNAL</type>
-                    <key>abraflexi.update.latestTesting</key>
-                    <history>30d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <params>abraflexi-update-testing.sh</params>
-                    
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b20</uuid>
-                    <name>Latest testing version numeric</name>
-                    <type>DEPENDENT</type>
-                    <key>abraflexi.update.latestTesting.numeric</key>
-                    <delay>0</delay>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-                    <master_item>
-                    <key>abraflexi.update.latestTesting</key>
-                    </master_item>
-                    <preprocessing>
-                        <step>
-                            <type>JAVASCRIPT</type>
-                            <parameters>
-                                <parameter>var parts = value.split('.');
-var major = parseInt(parts[0], 10) || 0;
-var minor = parseInt(parts[1] || '0', 10);
-var patch = parseInt(parts[2] || '0', 10);
-return major * 1000000 + minor * 1000 + patch;</parameter>
-                            </parameters>
-                        </step>
-                    </preprocessing>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b02</uuid>
-                    <name>Latest production version available</name>
-                    <type>EXTERNAL</type>
-                    <key>abraflexi.update.latestProduction</key>
-                    <history>30d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <params>abraflexi-update-production.sh</params>
-                    
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b21</uuid>
-                    <name>Latest production version numeric</name>
-                    <type>DEPENDENT</type>
-                    <key>abraflexi.update.latestProduction.numeric</key>
-                    <delay>0</delay>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-                    <master_item>
-                    <key>abraflexi.update.latestProduction</key>
-                    </master_item>
-                    <preprocessing>
-                        <step>
-                            <type>JAVASCRIPT</type>
-                            <parameters>
-                                <parameter>var parts = value.split('.');
-var major = parseInt(parts[0], 10) || 0;
-var minor = parseInt(parts[1] || '0', 10);
-var patch = parseInt(parts[2] || '0', 10);
-return major * 1000000 + minor * 1000 + patch;</parameter>
-                            </parameters>
-                        </step>
-                    </preprocessing>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7ada</uuid>
-                    <name>AbraFlexi version numeric</name>
-                    <type>DEPENDENT</type>
-                    <key>abraflexi.system.version.numeric</key>
-                    <delay>0</delay>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-                    <master_item>
-                    <key>abraflexi.system.version</key>
-                    </master_item>
-                    <preprocessing>
-                        <step>
-                            <type>JAVASCRIPT</type>
-                            <parameters>
-                                <parameter>var parts = value.split('.');
-var major = parseInt(parts[0], 10) || 0;
-var minor = parseInt(parts[1] || '0', 10);
-var patch = parseInt(parts[2] || '0', 10);
-return major * 1000000 + minor * 1000 + patch;</parameter>
-                            </parameters>
-                        </step>
-                    </preprocessing>
-                    <triggers>
-                        <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7b11</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&lt;last(/AbraFlexi Server Monitoring/abraflexi.update.latestTesting.numeric) and last(/AbraFlexi Server Monitoring/abraflexi.update.latestTesting.numeric)&gt;0</expression>
-                            <name>New testing version of AbraFlexi available</name>
-                            <priority>INFO</priority>
-                            <tags>
-                                <tag>
-                                    <tag>Application</tag>
-                                    <value>AbraFlexi</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                        <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7b12</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&lt;last(/AbraFlexi Server Monitoring/abraflexi.update.latestProduction.numeric) and last(/AbraFlexi Server Monitoring/abraflexi.update.latestProduction.numeric)&gt;0</expression>
-                            <name>New production version of AbraFlexi available</name>
-                            <priority>WARNING</priority>
-                            <tags>
-                                <tag>
-                                    <tag>Application</tag>
-                                    <value>AbraFlexi</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                        <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7ac0</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&amp;gt;prev(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)</expression>
-                            <name>AbraFlexi was updated</name>
-                            <priority>INFO</priority>
-                            <tags>
-                                <tag>
-                                    <tag>Application</tag>
-                                    <value>AbraFlexi</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                        <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7ac1</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&amp;lt;prev(/AbraFlexi Server Monitoring/abraflexi.system.version.numeric)</expression>
-                            <name>AbraFlexi was downgraded</name>
-                            <priority>WARNING</priority>
-                            <tags>
-                                <tag>
-                                    <tag>Application</tag>
-                                    <value>AbraFlexi</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                    </triggers>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a74</uuid>
                     <name>Application server running</name>
-                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.appServerRunning</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac3</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.appServerRunning)=0</expression>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.appServerRunning)=0</expression>
                             <name>AbraFlexi application server is down</name>
                             <priority>DISASTER</priority>
                             <tags>
@@ -363,68 +179,12 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                             </tags>
                         </trigger>
                     </triggers>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
                 </item>
-
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a75</uuid>
-                    <name>System load average</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.systemLoad</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>FLOAT</value_type>
-                    <triggers>
-                        <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7ac4</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.systemLoad) &gt; 5.0</expression>
-                            <name>High system load</name>
-                            <priority>WARNING</priority>
-                            <tags>
-                                <tag>
-                                    <tag>Application</tag>
-                                    <value>AbraFlexi</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                        <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7ac5</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.systemLoad) &gt; 10.0</expression>
-                            <name>Critical system load</name>
-                            <priority>HIGH</priority>
-                            <tags>
-                                <tag>
-                                    <tag>Application</tag>
-                                    <value>AbraFlexi</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                    </triggers>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a76</uuid>
-                    <name>Memory used</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.memoryUsed</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
+                    <uuid>748ad4d098d447d492bb935c178a7a82</uuid>
+                    <name>Bytes read</name>
+                    <key>abraflexi.system.bytesRead</key>
                     <units>B</units>
-
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -432,17 +192,12 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a77</uuid>
-                    <name>Memory heap</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.memoryHeap</key>
+                    <uuid>748ad4d098d447d492bb935c178a7b15</uuid>
+                    <name>Bytes written</name>
+                    <key>abraflexi.system.bytesWritten</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
                     <units>B</units>
-
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -450,45 +205,12 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a7e</uuid>
-                    <name>Memory usage percentage</name>
-                    <type>CALCULATED</type>
-                    <key>abraflexi.system.memoryUsagePercent</key>
-                    <delay>1m</delay>
+                    <uuid>748ad4d098d447d492bb935c178a7b19</uuid>
+                    <name>Central server database version</name>
+                    <key>abraflexi.system.centralServerDatabaseVersion</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>FLOAT</value_type>
-                    <units>%</units>
-                    <params>last(//abraflexi.system.memoryUsed) / last(//abraflexi.system.memoryHeap) * 100</params>
-                    <triggers>
-                        <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7ac6</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.memoryUsagePercent) &gt; 85</expression>
-                            <name>High memory usage</name>
-                            <priority>WARNING</priority>
-                            <tags>
-                                <tag>
-                                    <tag>Application</tag>
-                                    <value>AbraFlexi</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                        <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7ac7</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.memoryUsagePercent) &gt; 95</expression>
-                            <name>Critical memory usage</name>
-                            <priority>HIGH</priority>
-                            <tags>
-                                <tag>
-                                    <tag>Application</tag>
-                                    <value>AbraFlexi</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                    </triggers>
-
+                    <value_type>TEXT</value_type>
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -496,29 +218,69 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7a84</uuid>
+                    <name>Java version</name>
+                    <key>abraflexi.system.javaVersion</key>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7a85</uuid>
+                    <name>License name</name>
+                    <key>abraflexi.system.licenseName</key>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7a86</uuid>
+                    <name>License variant</name>
+                    <key>abraflexi.system.licenseVariant</key>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b10</uuid>
+                    <name>Licensing method</name>
+                    <key>abraflexi.system.licensingMethod</key>
+                    <history>30d</history>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a78</uuid>
                     <name>Logged users total</name>
-                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.loggedUser</key>
-                    <value_type>UNSIGNED</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7ac8</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.loggedUser) &gt; 50</expression>
-                            <name>High number of logged users</name>
-                            <priority>WARNING</priority>
-                            <tags>
-                                <tag>
-                                    <tag>Application</tag>
-                                    <value>AbraFlexi</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                        <trigger>
                             <uuid>748ad4d098d447d492bb935c178a7ac9</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.loggedUser) &gt; 100</expression>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.loggedUser) &gt; {$CRITICAL_LOGGED_USERS}</expression>
                             <name>Critical number of logged users</name>
                             <priority>HIGH</priority>
                             <tags>
@@ -528,27 +290,10 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                                 </tag>
                             </tags>
                         </trigger>
-                    </triggers>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a81</uuid>
-                    <name>Active sessions total</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.sessions</key>
-                    <value_type>UNSIGNED</value_type>
-                    <triggers>
                         <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7aca</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.sessions) &gt; 75</expression>
-                            <name>High number of active sessions</name>
+                            <uuid>748ad4d098d447d492bb935c178a7ac8</uuid>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.loggedUser) &gt; {$HIGH_LOGGED_USERS}</expression>
+                            <name>High number of logged users</name>
                             <priority>WARNING</priority>
                             <tags>
                                 <tag>
@@ -557,10 +302,65 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                                 </tag>
                             </tags>
                         </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b11</uuid>
+                    <name>Read-only logged users</name>
+                    <key>abraflexi.system.loggedUserRO</key>
+                    <history>30d</history>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b12</uuid>
+                    <name>Read-write logged users</name>
+                    <key>abraflexi.system.loggedUserRW</key>
+                    <history>30d</history>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7a77</uuid>
+                    <name>Memory heap</name>
+                    <key>abraflexi.system.memoryHeap</key>
+                    <history>30d</history>
+                    <units>B</units>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7a7e</uuid>
+                    <name>Memory usage percentage</name>
+                    <type>CALCULATED</type>
+                    <key>abraflexi.system.memoryUsagePercent</key>
+                    <history>30d</history>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <params>last(//abraflexi.system.memoryUsed) / last(//abraflexi.system.memoryHeap) * 100</params>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                    <triggers>
                         <trigger>
-                            <uuid>748ad4d098d447d492bb935c178a7acb</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.sessions) &gt; 150</expression>
-                            <name>Critical number of active sessions</name>
+                            <uuid>748ad4d098d447d492bb935c178a7ac7</uuid>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.memoryUsagePercent) &gt; {$CRITICAL_MEMORY_USAGE}</expression>
+                            <name>Critical memory usage</name>
                             <priority>HIGH</priority>
                             <tags>
                                 <tag>
@@ -569,24 +369,26 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                                 </tag>
                             </tags>
                         </trigger>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac6</uuid>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.memoryUsagePercent) &gt; {$HIGH_MEMORY_USAGE}</expression>
+                            <name>High memory usage</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>AbraFlexi</value>
+                                </tag>
+                            </tags>
+                        </trigger>
                     </triggers>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
                 </item>
-
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a82</uuid>
-                    <name>Bytes read</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.bytesRead</key>
-                    <value_type>UNSIGNED</value_type>
+                    <uuid>748ad4d098d447d492bb935c178a7a76</uuid>
+                    <name>Memory used</name>
+                    <key>abraflexi.system.memoryUsed</key>
+                    <history>30d</history>
                     <units>B</units>
-
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -594,15 +396,12 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a83</uuid>
-                    <name>Total GC time</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.totalGcTime</key>
-                    <value_type>UNSIGNED</value_type>
-                    <units>ms</units>
-
+                    <uuid>748ad4d098d447d492bb935c178a7b16</uuid>
+                    <name>Operating system</name>
+                    <key>abraflexi.system.operatingSystem</key>
+                    <history>30d</history>
+                    <value_type>TEXT</value_type>
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -610,7 +409,6 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7a89</uuid>
                     <name>API response time</name>
@@ -625,7 +423,7 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                     <triggers>
                         <trigger>
                             <uuid>c3de7bf9bc1340c88398569339092d47</uuid>
-                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.system.responseTime)&gt;5000</expression>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.responseTime)&gt; {$API_RESPONSE_TIME}</expression>
                             <name>API response time</name>
                             <url_name>/{HOST.NAME}/abraflexi.config.login</url_name>
                             <url>/{HOST.NAME}/abraflexi.config.url</url>
@@ -639,112 +437,48 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </trigger>
                     </triggers>
                 </item>
-
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a84</uuid>
-                    <name>Java version</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.javaVersion</key>
-                    <value_type>TEXT</value_type>
-
+                    <uuid>748ad4d098d447d492bb935c178a7a81</uuid>
+                    <name>Active sessions total</name>
+                    <key>abraflexi.system.sessions</key>
                     <tags>
                         <tag>
                             <tag>Application</tag>
                             <value>AbraFlexi</value>
                         </tag>
                     </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7acb</uuid>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.sessions) &gt; {$CRITICAL_NUMBER_OF_ACTIVE_SESSIONS}</expression>
+                            <name>Critical number of active sessions</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>AbraFlexi</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7aca</uuid>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.sessions) &gt; {$HIGH_NUMBER_OF_SESSIONS}</expression>
+                            <name>High number of active sessions</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>AbraFlexi</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
                 </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a85</uuid>
-                    <name>License name</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.licenseName</key>
-                    <value_type>TEXT</value_type>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7a86</uuid>
-                    <name>License variant</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.licenseVariant</key>
-                    <value_type>TEXT</value_type>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b10</uuid>
-                    <name>Licensing method</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.licensingMethod</key>
-                    <value_type>TEXT</value_type>
-                    <history>30d</history>
-                    <trends>365d</trends>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b11</uuid>
-                    <name>Read-only logged users</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.loggedUserRO</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b12</uuid>
-                    <name>Read-write logged users</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.loggedUserRW</key>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7b13</uuid>
                     <name>Read-only sessions</name>
-                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.sessionsRO</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -752,16 +486,11 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7b14</uuid>
                     <name>Read-write sessions</name>
-                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.sessionsRW</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -769,68 +498,12 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b15</uuid>
-                    <name>Bytes written</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.bytesWritten</key>
-                    <value_type>UNSIGNED</value_type>
-                    <units>B</units>
-                    <history>30d</history>
-                    <trends>365d</trends>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b16</uuid>
-                    <name>Operating system</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.operatingSystem</key>
-                    <value_type>TEXT</value_type>
-                    <history>30d</history>
-                    <trends>365d</trends>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
-                <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b17</uuid>
-                    <name>System UUID</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.uuid</key>
-                    <value_type>TEXT</value_type>
-                    <history>30d</history>
-                    <trends>365d</trends>
-
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>AbraFlexi</value>
-                        </tag>
-                    </tags>
-                </item>
-
                 <item>
                     <uuid>748ad4d098d447d492bb935c178a7b18</uuid>
                     <name>Startup time</name>
-                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.system.startupTime</key>
-                    <value_type>TEXT</value_type>
                     <history>30d</history>
-                    <trends>365d</trends>
-
+                    <value_type>TEXT</value_type>
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -838,16 +511,50 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b19</uuid>
-                    <name>Central server database version</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.system.centralServerDatabaseVersion</key>
-                    <value_type>TEXT</value_type>
+                    <uuid>748ad4d098d447d492bb935c178a7a75</uuid>
+                    <name>System load average</name>
+                    <key>abraflexi.system.systemLoad</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-
+                    <value_type>FLOAT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac5</uuid>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.systemLoad) &gt; {$CRITICAL_SYSTEM_LOAD}</expression>
+                            <name>Critical system load</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>AbraFlexi</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7ac4</uuid>
+                            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.systemLoad) &gt; {$HIGH_SYSTEM_LOAD}</expression>
+                            <name>High system load</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>AbraFlexi</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7a83</uuid>
+                    <name>Total GC time</name>
+                    <key>abraflexi.system.totalGcTime</key>
+                    <units>ms</units>
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -855,16 +562,12 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b1a</uuid>
-                    <name>Configuration URL</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.config.url</key>
-                    <value_type>TEXT</value_type>
+                    <uuid>748ad4d098d447d492bb935c178a7b17</uuid>
+                    <name>System UUID</name>
+                    <key>abraflexi.system.uuid</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-
+                    <value_type>TEXT</value_type>
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -872,16 +575,12 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b1b</uuid>
-                    <name>Configuration login</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.config.login</key>
-                    <value_type>TEXT</value_type>
+                    <uuid>748ad4d098d447d492bb935c178a7a73</uuid>
+                    <name>AbraFlexi version</name>
+                    <key>abraflexi.system.version</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-
+                    <value_type>TEXT</value_type>
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -889,19 +588,127 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                         </tag>
                     </tags>
                 </item>
-
                 <item>
-                    <uuid>748ad4d098d447d492bb935c178a7b1c</uuid>
-                    <name>Network overall status</name>
-                    <type>ZABBIX_PASSIVE</type>
-                    <key>abraflexi.network.overall</key>
+                    <uuid>748ad4d098d447d492bb935c178a7ada</uuid>
+                    <name>AbraFlexi version numeric</name>
+                    <type>DEPENDENT</type>
+                    <key>abraflexi.system.version.numeric</key>
                     <history>30d</history>
-                    <trends>365d</trends>
-                    <value_type>UNSIGNED</value_type>
-                    <valuemap>
-                        <name>Service state</name>
-                    </valuemap>
-
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>var parts = value.split('.');
+var major = parseInt(parts[0], 10) || 0;
+var minor = parseInt(parts[1] || '0', 10);
+var patch = parseInt(parts[2] || '0', 10);
+return major * 1000000 + minor * 1000 + patch;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>abraflexi.system.version</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b02</uuid>
+                    <name>Latest production version available</name>
+                    <type>EXTERNAL</type>
+                    <key>abraflexi.update.latestProduction</key>
+                    <history>30d</history>
+                    <value_type>TEXT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.latestProduction</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b21</uuid>
+                    <name>Latest production version numeric</name>
+                    <type>DEPENDENT</type>
+                    <key>abraflexi.update.latestProduction.numeric</key>
+                    <history>30d</history>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>var parts = value.split('.');
+var major = parseInt(parts[0], 10) || 0;
+var minor = parseInt(parts[1] || '0', 10);
+var patch = parseInt(parts[2] || '0', 10);
+return major * 1000000 + minor * 1000 + patch;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>abraflexi.update.latestProduction</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b01</uuid>
+                    <name>Latest testing version available</name>
+                    <type>EXTERNAL</type>
+                    <key>abraflexi.update.latestTesting</key>
+                    <history>30d</history>
+                    <value_type>TEXT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.latestTesting</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b20</uuid>
+                    <name>Latest testing version numeric</name>
+                    <type>DEPENDENT</type>
+                    <key>abraflexi.update.latestTesting.numeric</key>
+                    <history>30d</history>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>var parts = value.split('.');
+var major = parseInt(parts[0], 10) || 0;
+var minor = parseInt(parts[1] || '0', 10);
+var patch = parseInt(parts[2] || '0', 10);
+return major * 1000000 + minor * 1000 + patch;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>abraflexi.update.latestTesting</key>
+                    </master_item>
                     <tags>
                         <tag>
                             <tag>Application</tag>
@@ -910,34 +717,24 @@ return major * 1000000 + minor * 1000 + patch;</parameter>
                     </tags>
                 </item>
             </items>
-
-            <!-- ============================= -->
-            <!--        DISCOVERY RULE         -->
-            <!-- ============================= -->
-
             <discovery_rules>
                 <discovery_rule>
                     <uuid>748ad4d098d447d492bb935c178a7a90</uuid>
                     <name>AbraFlexi Companies Discovery</name>
-                    <type>ZABBIX_PASSIVE</type>
                     <key>abraflexi.company.lld</key>
                     <delay>1h</delay>
-
                     <item_prototypes>
                         <item_prototype>
                             <uuid>748ad4d098d447d492bb935c178a7a91</uuid>
                             <name>Company {#COMPANY_NAME} availability</name>
                             <type>CALCULATED</type>
-                    <key>abraflexi.company.available[{#COMPANY_CODE}]</key>
-                            <value_type>UNSIGNED</value_type>
+                            <key>abraflexi.company.available[{#COMPANY_CODE}]</key>
                             <params>
 min(last(//abraflexi.network.connectivity),
     last(//abraflexi.network.authentication))
                             </params>
                         </item_prototype>
                     </item_prototypes>
-
-
                     <graph_prototypes>
                         <graph_prototype>
                             <uuid>748ad4d098d447d492bb935c178a7a96</uuid>
@@ -946,22 +743,59 @@ min(last(//abraflexi.network.connectivity),
                                 <graph_item>
                                     <color>1A7C11</color>
                                     <item>
-                                        <host>AbraFlexi Server Monitoring</host>
+                                        <host>Remote AbraFlexi Server Monitoring</host>
                                         <key>abraflexi.company.available[{#COMPANY_CODE}]</key>
-                    
-                </item>
+                                    </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                     </graph_prototypes>
-
                 </discovery_rule>
             </discovery_rules>
-
-            <!-- ============================= -->
-            <!--         VALUE MAPS           -->
-            <!-- ============================= -->
-
+            <tags>
+                <tag>
+                    <tag>label</tag>
+                    <value>AbraFlexi</value>
+                </tag>
+            </tags>
+            <macros>
+                <macro>
+                    <macro>{$API_RESPONSE_TIME}</macro>
+                    <value>500</value>
+                </macro>
+                <macro>
+                    <macro>{$CRITICAL_LOGGED_USERS}</macro>
+                    <value>300</value>
+                </macro>
+                <macro>
+                    <macro>{$CRITICAL_MEMORY_USAGE}</macro>
+                    <value>95</value>
+                </macro>
+                <macro>
+                    <macro>{$CRITICAL_NUMBER_OF_ACTIVE_SESSIONS}</macro>
+                    <value>180</value>
+                </macro>
+                <macro>
+                    <macro>{$CRITICAL_SYSTEM_LOAD}</macro>
+                    <value>10.0</value>
+                </macro>
+                <macro>
+                    <macro>{$HIGH_LOGGED_USERS}</macro>
+                    <value>200</value>
+                </macro>
+                <macro>
+                    <macro>{$HIGH_MEMORY_USAGE}</macro>
+                    <value>85</value>
+                </macro>
+                <macro>
+                    <macro>{$HIGH_NUMBER_OF_SESSIONS}</macro>
+                    <value>300</value>
+                </macro>
+                <macro>
+                    <macro>{$HIGH_SYSTEM_LOAD}</macro>
+                    <value>5.0</value>
+                </macro>
+            </macros>
             <valuemaps>
                 <valuemap>
                     <uuid>748ad4d098d447d492bb935c178a7ab0</uuid>
@@ -978,9 +812,32 @@ min(last(//abraflexi.network.connectivity),
                     </mappings>
                 </valuemap>
             </valuemaps>
-
         </template>
     </templates>
-
-
+    <triggers>
+        <trigger>
+            <uuid>748ad4d098d447d492bb935c178a7b12</uuid>
+            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&lt;last(/Remote AbraFlexi Server Monitoring/abraflexi.update.latestProduction.numeric) and last(/Remote AbraFlexi Server Monitoring/abraflexi.update.latestProduction.numeric)&gt;0</expression>
+            <name>New production version of AbraFlexi available</name>
+            <priority>WARNING</priority>
+            <tags>
+                <tag>
+                    <tag>Application</tag>
+                    <value>AbraFlexi</value>
+                </tag>
+            </tags>
+        </trigger>
+        <trigger>
+            <uuid>748ad4d098d447d492bb935c178a7b11</uuid>
+            <expression>last(/Remote AbraFlexi Server Monitoring/abraflexi.system.version.numeric)&lt;last(/Remote AbraFlexi Server Monitoring/abraflexi.update.latestTesting.numeric) and last(/Remote AbraFlexi Server Monitoring/abraflexi.update.latestTesting.numeric)&gt;0</expression>
+            <name>New testing version of AbraFlexi available</name>
+            <priority>INFO</priority>
+            <tags>
+                <tag>
+                    <tag>Application</tag>
+                    <value>AbraFlexi</value>
+                </tag>
+            </tags>
+        </trigger>
+    </triggers>
 </zabbix_export>
