@@ -460,22 +460,6 @@
                     </tags>
                 </item>
             </items>
-            <valuemaps>
-                <valuemap>
-                    <uuid>7c3d47b32c6741e6a69eee46d6248873</uuid>
-                    <name>Service state</name>
-                    <mappings>
-                        <mapping>
-                            <value>0</value>
-                            <newvalue>Down</newvalue>
-                        </mapping>
-                        <mapping>
-                            <value>1</value>
-                            <newvalue>Up</newvalue>
-                        </mapping>
-                    </mappings>
-                </valuemap>
-            </valuemaps>
             <macros>
                 <macro>
                     <macro>{$API_RESPONSE_TIME}</macro>
@@ -514,6 +498,22 @@
                     <value>5.0</value>
                 </macro>
             </macros>
+            <valuemaps>
+                <valuemap>
+                    <uuid>7c3d47b32c6741e6a69eee46d6248873</uuid>
+                    <name>Service state</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>Down</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>Up</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
         </template>
     </templates>
     <triggers>
@@ -635,4 +635,102 @@
             </tags>
         </trigger>
     </triggers>
+    <graphs>
+        <graph>
+            <uuid>50de59a2ded0483dab323498a441cc7b</uuid>
+            <name>AbraFlexi System Load</name>
+            <width>900</width>
+            <height>200</height>
+            <graph_items>
+                <graph_item>
+                    <sortorder>0</sortorder>
+                    <color>CC0000</color>
+                    <item>
+                        <host>AbraFlexi Discovered Node</host>
+                        <key>abraflexi.system.systemLoad</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>6a0681aa9f404e2781daffb8d278ba49</uuid>
+            <name>AbraFlexi API Response Time</name>
+            <width>900</width>
+            <height>200</height>
+            <graph_items>
+                <graph_item>
+                    <sortorder>0</sortorder>
+                    <color>0000CC</color>
+                    <item>
+                        <host>AbraFlexi Discovered Node</host>
+                        <key>abraflexi.system.responseTime</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>7536a191afb742fabf723e5ef225fb5f</uuid>
+            <name>AbraFlexi Memory Usage</name>
+            <width>900</width>
+            <height>200</height>
+            <graph_items>
+                <graph_item>
+                    <sortorder>0</sortorder>
+                    <color>00CC00</color>
+                    <item>
+                        <host>AbraFlexi Discovered Node</host>
+                        <key>abraflexi.system.memoryHeap</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>CC0000</color>
+                    <item>
+                        <host>AbraFlexi Discovered Node</host>
+                        <key>abraflexi.system.memoryUsed</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>d00bdc4f589e43fb906016db2daf0a18</uuid>
+            <name>AbraFlexi User Activity</name>
+            <width>900</width>
+            <height>200</height>
+            <graph_items>
+                <graph_item>
+                    <sortorder>0</sortorder>
+                    <color>0000CC</color>
+                    <item>
+                        <host>AbraFlexi Discovered Node</host>
+                        <key>abraflexi.system.sessions</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>8d6de1b219ec4d87a1877c4b2795578f</uuid>
+            <name>AbraFlexi Network Traffic</name>
+            <width>900</width>
+            <height>200</height>
+            <graph_items>
+                <graph_item>
+                    <sortorder>0</sortorder>
+                    <color>00CC00</color>
+                    <item>
+                        <host>AbraFlexi Discovered Node</host>
+                        <key>abraflexi.system.bytesRead</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>CC0000</color>
+                    <item>
+                        <host>AbraFlexi Discovered Node</host>
+                        <key>abraflexi.system.bytesWritten</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
 </zabbix_export>
