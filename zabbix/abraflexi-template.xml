@@ -459,6 +459,32 @@
                         </tag>
                     </tags>
                 </item>
+                <item>
+                    <uuid>5ef9fb5bcf71400c9d590dc57fbca456</uuid>
+                    <name>API Host</name>
+                    <type>DEPENDENT</type>
+                    <key>abraflexi.config.apihost</key>
+                    <history>30d</history>
+                    <value_type>TEXT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>https?://([^/:]+).*</parameter>
+                                <parameter>\1</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>abraflexi.config.url</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi</value>
+                        </tag>
+                    </tags>
+                </item>
             </items>
             <macros>
                 <macro>
@@ -520,7 +546,7 @@
         <trigger>
             <uuid>d3f9a6c350014b2b9d3c000000000100</uuid>
             <expression>last(/AbraFlexi Discovered Node/abraflexi.network.connectivity)=0</expression>
-            <name>AbraFlexi network connectivity failed on {#APIHOST}</name>
+            <name>AbraFlexi network connectivity failed on {HOST.NAME}</name>
             <priority>DISASTER</priority>
             <tags>
                 <tag>
@@ -532,7 +558,7 @@
         <trigger>
             <uuid>d3f9a6c350024b2b9d3c000000000101</uuid>
             <expression>last(/AbraFlexi Discovered Node/abraflexi.network.authentication)=0</expression>
-            <name>AbraFlexi authentication failed on {#APIHOST}</name>
+            <name>AbraFlexi authentication failed on {HOST.NAME}</name>
             <priority>HIGH</priority>
             <tags>
                 <tag>
@@ -544,7 +570,7 @@
         <trigger>
             <uuid>d3f9a6c350034b2b9d3c000000000102</uuid>
             <expression>last(/AbraFlexi Discovered Node/abraflexi.network.service)=0</expression>
-            <name>AbraFlexi service health check failed on {#APIHOST}</name>
+            <name>AbraFlexi service health check failed on {HOST.NAME}</name>
             <priority>HIGH</priority>
             <tags>
                 <tag>
@@ -556,7 +582,7 @@
         <trigger>
             <uuid>d3f9a6c350044b2b9d3c000000000103</uuid>
             <expression>last(/AbraFlexi Discovered Node/abraflexi.system.appServerRunning)=0</expression>
-            <name>AbraFlexi application server is down on {#APIHOST}</name>
+            <name>AbraFlexi application server is down on {HOST.NAME}</name>
             <priority>DISASTER</priority>
             <tags>
                 <tag>
@@ -569,7 +595,7 @@
             <uuid>d3f9a6c350054b2b9d3c000000000104</uuid>
             <expression>last(/AbraFlexi Discovered Node/abraflexi.system.memoryUsagePercent) &gt;
                 {$CRITICAL_MEMORY_USAGE}</expression>
-            <name>Critical memory usage on {#APIHOST}</name>
+            <name>Critical memory usage on {HOST.NAME}</name>
             <priority>HIGH</priority>
             <tags>
                 <tag>
@@ -582,7 +608,7 @@
             <uuid>d3f9a6c350064b2b9d3c000000000105</uuid>
             <expression>last(/AbraFlexi Discovered Node/abraflexi.system.systemLoad) &gt;
                 {$CRITICAL_SYSTEM_LOAD}</expression>
-            <name>Critical system load on {#APIHOST}</name>
+            <name>Critical system load on {HOST.NAME}</name>
             <priority>HIGH</priority>
             <tags>
                 <tag>
@@ -595,7 +621,7 @@
             <uuid>d3f9a6c350074b2b9d3c000000000106</uuid>
             <expression>last(/AbraFlexi Discovered Node/abraflexi.system.sessions) &gt;
                 {$CRITICAL_NUMBER_OF_ACTIVE_SESSIONS}</expression>
-            <name>Critical number of active sessions on {#APIHOST}</name>
+            <name>Critical number of active sessions on {HOST.NAME}</name>
             <priority>HIGH</priority>
             <tags>
                 <tag>
@@ -610,7 +636,7 @@
                 Node/abraflexi.system.version.numeric)&lt;last(/AbraFlexi Discovered
                 Node/abraflexi.update.latestProduction.numeric) and last(/AbraFlexi Discovered
                 Node/abraflexi.update.latestProduction.numeric)&gt;0</expression>
-            <name>New production version of AbraFlexi available on {#APIHOST}</name>
+            <name>New production version of AbraFlexi available on {HOST.NAME}</name>
             <priority>WARNING</priority>
             <tags>
                 <tag>
@@ -625,7 +651,7 @@
                 Node/abraflexi.system.version.numeric)&lt;last(/AbraFlexi Discovered
                 Node/abraflexi.update.latestTesting.numeric) and last(/AbraFlexi Discovered
                 Node/abraflexi.update.latestTesting.numeric)&gt;0</expression>
-            <name>New testing version of AbraFlexi available on {#APIHOST}</name>
+            <name>New testing version of AbraFlexi available on {HOST.NAME}</name>
             <priority>INFO</priority>
             <tags>
                 <tag>
