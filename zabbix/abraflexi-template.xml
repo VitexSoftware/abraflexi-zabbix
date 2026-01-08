@@ -485,6 +485,104 @@
                         </tag>
                     </tags>
                 </item>
+
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b20</uuid>
+                    <name>Unsent invoices total</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>abraflexi.invoices.unsent.total</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi Invoices</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7b21</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.invoices.unsent.total) &gt; 10</expression>
+                            <name>High number of unsent invoices</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7b22</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.invoices.unsent.total) &gt; 50</expression>
+                            <name>Critical number of unsent invoices</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b23</uuid>
+                    <name>Unsent invoices companies affected</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>abraflexi.invoices.unsent.companies</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi Invoices</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7b24</uuid>
+                            <expression>last(/AbraFlexi Server Monitoring/abraflexi.invoices.unsent.companies) &gt; 5</expression>
+                            <name>Multiple companies have unsent invoices</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b25</uuid>
+                    <name>Unsent invoices status</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>abraflexi.invoices.unsent.status</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi Invoices</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>748ad4d098d447d492bb935c178a7b26</uuid>
+                            <expression>str(/AbraFlexi Server Monitoring/abraflexi.invoices.unsent.status)="warning"</expression>
+                            <name>Unsent invoices detected</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+
+                <item>
+                    <uuid>748ad4d098d447d492bb935c178a7b27</uuid>
+                    <name>Unsent invoices message</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>abraflexi.invoices.unsent.message</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>AbraFlexi Invoices</value>
+                        </tag>
+                    </tags>
+                </item>
             </items>
             <macros>
                 <macro>
@@ -759,4 +857,141 @@
             </graph_items>
         </graph>
     </graphs>
+
+    <dashboards>
+        <dashboard>
+            <uuid>748ad4d098d447d492bb935c178a7d01</uuid>
+            <name>AbraFlexi Server Overview</name>
+            <pages>
+                <page>
+                    <name>System Health &amp; Invoices</name>
+                    <widgets>
+                        <widget>
+                            <type>GRAPH_CLASSIC</type>
+                            <name>System Load Average</name>
+                            <x>0</x>
+                            <y>0</y>
+                            <width>12</width>
+                            <height>5</height>
+                            <fields>
+                                <field>
+                                    <type>GRAPH</type>
+                                    <name>graphid</name>
+                                    <value>
+                                        <host>AbraFlexi Server Monitoring</host>
+                                        <name>System Load</name>
+                                    </value>
+                                </field>
+                            </fields>
+                        </widget>
+                        <widget>
+                            <type>GRAPH_CLASSIC</type>
+                            <name>Memory Usage (%)</name>
+                            <x>12</x>
+                            <y>0</y>
+                            <width>12</width>
+                            <height>5</height>
+                            <fields>
+                                <field>
+                                    <type>GRAPH</type>
+                                    <name>graphid</name>
+                                    <value>
+                                        <host>AbraFlexi Server Monitoring</host>
+                                        <name>Memory Usage</name>
+                                    </value>
+                                </field>
+                            </fields>
+                        </widget>
+                        <widget>
+                            <type>PLAIN_TEXT</type>
+                            <name>Unsent Invoices Count</name>
+                            <x>0</x>
+                            <y>5</y>
+                            <width>6</width>
+                            <height>3</height>
+                            <fields>
+                                <field>
+                                    <type>ITEM</type>
+                                    <name>itemids</name>
+                                    <value>
+                                        <host>AbraFlexi Server Monitoring</host>
+                                        <key>abraflexi.invoices.unsent.total</key>
+                                    </value>
+                                </field>
+                                <field>
+                                    <type>SHOW</type>
+                                    <name>show</name>
+                                    <value>2</value>
+                                </field>
+                            </fields>
+                        </widget>
+                        <widget>
+                            <type>PLAIN_TEXT</type>
+                            <name>Companies Affected</name>
+                            <x>6</x>
+                            <y>5</y>
+                            <width>6</width>
+                            <height>3</height>
+                            <fields>
+                                <field>
+                                    <type>ITEM</type>
+                                    <name>itemids</name>
+                                    <value>
+                                        <host>AbraFlexi Server Monitoring</host>
+                                        <key>abraflexi.invoices.unsent.companies</key>
+                                    </value>
+                                </field>
+                                <field>
+                                    <type>SHOW</type>
+                                    <name>show</name>
+                                    <value>2</value>
+                                </field>
+                            </fields>
+                        </widget>
+                        <widget>
+                            <type>PLAIN_TEXT</type>
+                            <name>Unsent Invoices Status</name>
+                            <x>12</x>
+                            <y>5</y>
+                            <width>12</width>
+                            <height>3</height>
+                            <fields>
+                                <field>
+                                    <type>ITEM</type>
+                                    <name>itemids</name>
+                                    <value>
+                                        <host>AbraFlexi Server Monitoring</host>
+                                        <key>abraflexi.invoices.unsent.message</key>
+                                    </value>
+                                </field>
+                                <field>
+                                    <type>SHOW</type>
+                                    <name>show</name>
+                                    <value>2</value>
+                                </field>
+                            </fields>
+                        </widget>
+                        <widget>
+                            <type>GRAPH_CLASSIC</type>
+                            <name>Unsent Invoices Trend</name>
+                            <x>0</x>
+                            <y>8</y>
+                            <width>24</width>
+                            <height>5</height>
+                            <fields>
+                                <field>
+                                    <type>ITEM</type>
+                                    <name>itemids</name>
+                                    <value>
+                                        <host>AbraFlexi Server Monitoring</host>
+                                        <key>abraflexi.invoices.unsent.total</key>
+                                    </value>
+                                </field>
+                            </fields>
+                        </widget>
+                    </widgets>
+                </page>
+            </pages>
+        </dashboard>
+    </dashboards>
 </zabbix_export>

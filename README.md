@@ -24,6 +24,11 @@ Comprehensive monitoring solution for AbraFlexi server using Zabbix with Low Lev
   - Single HTTP request serves all system metrics
   - 91% reduction in API requests
   - File-based caching with proper locking
+- **Unsent invoices monitoring** with automated alerts:
+  - Detection of unsent invoices from AbraFlexi
+  - Company-level unsent invoice tracking
+  - Status monitoring and alerting
+  - Integration with abraflexi-mailer ShowUnsent.php
 - **Immediate alerting** with separate triggers for:
   - Network connectivity issues
   - Authentication failures
@@ -56,10 +61,12 @@ Comprehensive monitoring solution for AbraFlexi server using Zabbix with Low Lev
    ```bash
    # For Zabbix Agent 2 (recommended)
    sudo cp zabbix/abraflexi-agent2.conf /etc/zabbix/zabbix_agent2.d/
+   sudo cp zabbix/abraflexi-invoices.conf /etc/zabbix/zabbix_agent2.d/
    sudo systemctl restart zabbix-agent2
    
    # For Zabbix Agent (legacy)
    sudo cp zabbix/abraflexi.conf /etc/zabbix/zabbix_agentd.d/
+   sudo cp zabbix/abraflexi-invoices.conf /etc/zabbix/zabbix_agentd.d/
    sudo systemctl restart zabbix-agent
    ```
 
@@ -76,7 +83,7 @@ The `zabbix/abraflexi-template.xml` file is a comprehensive Zabbix 7.2 template 
 
 ### Template Contents
 
-#### 📊 Monitoring Items (18 items)
+#### 📊 Monitoring Items (22 items)
 
 **Network Health Checks:**
 - `abraflexi.network.connectivity` - TCP connectivity status (0/1)
@@ -100,7 +107,13 @@ The `zabbix/abraflexi-template.xml` file is a comprehensive Zabbix 7.2 template 
 - `abraflexi.system.licenseName` - License name
 - `abraflexi.system.licenseVariant` - License variant/type
 
-#### 🚨 Triggers (15 triggers)
+**Unsent Invoices Monitoring:**
+- `abraflexi.invoices.unsent.total` - Total number of unsent invoices
+- `abraflexi.invoices.unsent.companies` - Number of companies with unsent invoices
+- `abraflexi.invoices.unsent.status` - Overall status from unsent invoices check
+- `abraflexi.invoices.unsent.message` - Human-readable status message
+
+#### 🚨 Triggers (19 triggers)
 
 **Critical/Disaster Priority:**
 - Network connectivity failure
@@ -113,6 +126,7 @@ The `zabbix/abraflexi-template.xml` file is a comprehensive Zabbix 7.2 template 
 - Critical memory usage (> 95%)
 - Critical number of logged users (> 100)
 - Critical number of active sessions (> 150)
+- Critical number of unsent invoices (> 50)
 - Company unavailable (per discovered company)
 
 **Warning Priority:**
@@ -120,11 +134,50 @@ The `zabbix/abraflexi-template.xml` file is a comprehensive Zabbix 7.2 template 
 - High memory usage (> 85%)
 - High number of logged users (> 50)
 - High number of active sessions (> 75)
+- High number of unsent invoices (> 10)
+- Multiple companies have unsent invoices (> 5)
+- Unsent invoices detected (status = warning)
 - Slow API response time (> 5000ms)
 
 **Info Priority:**
 - AbraFlexi version updated
 - AbraFlexi version downgraded
+
+## Unsent mail reporter
+
+Script which produces reports of unsent invoices in MultiFlexi-compliant format.
+
+Since version 1.3.8, reports conform to the [MultiFlexi report schema](https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.report.schema.json):
+
+```json
+{
+  "status": "warning",
+  "timestamp": "2025-10-04T01:00:00+00:00",
+  "message": "2 unsent invoices found affecting 1 companies",
+  "artifacts": {
+    "unsent_invoices": [
+      {
+        "id": 1131,
+        "firma": {
+          "value": "code:CUSTOMER",
+          "target": "adresar",
+          "ref": "/c/vitex_software/adresar/827.odeslat')",
+          "showAs": "CUSTOMER: CUSTOMER l.t.d."
+        },
+        "kontaktEmail": "info@customer.com",
+        "poznam": "",
+        "kod": "VF1-0077/2024",
+        "email": "info@customer.com",
+        "recipients": "info@customer.com"
+      }
+    ]
+  },
+  "metrics": {
+    "total_unsent": 2,
+    "companies_affected": 1
+  }
+}
+```
 
 #### 🔍 Discovery Rules
 
@@ -161,7 +214,15 @@ To visualize system metrics, create graphs manually in Zabbix:
 - **API Performance**: `abraflexi.system.responseTime`
 
 **Creating Dashboards:**
-Create custom dashboards in Zabbix UI:
+The template includes a pre-configured dashboard "AbraFlexi Server Overview" with:
+- System Load Average graph
+- Memory Usage percentage graph  
+- Unsent Invoices count display
+- Companies affected by unsent invoices count
+- Unsent invoices status message
+- Historical trend graph for unsent invoices
+
+Create additional custom dashboards in Zabbix UI:
 1. Go to **Monitoring → Dashboards → Create dashboard**
 2. Add widgets (graphs, problems, item values, etc.)
 3. Reference items from your AbraFlexi host
@@ -225,6 +286,12 @@ The template provides the following monitoring items:
 - `abraflexi.company.lld` - Discovers all available companies
 - `abraflexi.company.available[{#COMPANY_CODE}]` - Per-company availability
 
+#### Unsent Invoices Monitoring
+- `abraflexi.invoices.unsent.total` - Total number of unsent invoices
+- `abraflexi.invoices.unsent.companies` - Number of companies with unsent invoices  
+- `abraflexi.invoices.unsent.status` - Status from unsent invoices check
+- `abraflexi.invoices.unsent.message` - Human-readable status message
+
 ### Triggers
 
 #### Critical Alerts (Disaster/High Priority)
@@ -238,6 +305,9 @@ The template provides the following monitoring items:
 - **High system load** - Load average > 5.0
 - **High memory usage** - Memory usage > 90% of heap
 - **High user count** - More than 100 concurrent users
+- **High number of unsent invoices** - More than 10 unsent invoices
+- **Multiple companies with unsent invoices** - More than 5 companies affected
+- **Unsent invoices detected** - Status indicates unsent invoices present
 
 ## Usage
 
@@ -261,6 +331,10 @@ php src/cached_system_status.php configLogin
 php src/network_check.php network
 php src/network_check.php auth
 php src/network_check.php service
+
+# Test unsent invoices monitoring (requires abraflexi-mailer)
+# Note: ShowUnsent.php should be available from abraflexi-mailer package
+php /usr/share/abraflexi-mailer/src/ShowUnsent.php
 ```
 
 ### Manual Zabbix Agent Testing
@@ -274,6 +348,10 @@ zabbix_agent2 -t abraflexi.network.connectivity
 zabbix_agent2 -t abraflexi.network.overall
 zabbix_agent2 -t abraflexi.config.url
 zabbix_agent2 -t abraflexi.config.login
+zabbix_agent2 -t abraflexi.invoices.unsent.total
+zabbix_agent2 -t abraflexi.invoices.unsent.companies
+zabbix_agent2 -t abraflexi.invoices.unsent.status
+zabbix_agent2 -t abraflexi.invoices.unsent.message
 
 # For Zabbix Agent (legacy)
 zabbix_agentd -t abraflexi.company.lld
@@ -283,6 +361,10 @@ zabbix_agentd -t abraflexi.network.connectivity
 zabbix_agentd -t abraflexi.network.overall
 zabbix_agentd -t abraflexi.config.url
 zabbix_agentd -t abraflexi.config.login
+zabbix_agentd -t abraflexi.invoices.unsent.total
+zabbix_agentd -t abraflexi.invoices.unsent.companies
+zabbix_agentd -t abraflexi.invoices.unsent.status
+zabbix_agentd -t abraflexi.invoices.unsent.message
 ```
 
 ## Monitoring Intervals & Performance
@@ -399,6 +481,7 @@ src/
 zabbix/
 ├── abraflexi.conf           # Zabbix Agent user parameters (legacy)
 ├── abraflexi-agent2.conf    # Zabbix Agent 2 user parameters (recommended)
+├── abraflexi-invoices.conf  # Unsent invoices monitoring configuration
 └── abraflexi-template.xml   # Zabbix monitoring template
 
 bin/

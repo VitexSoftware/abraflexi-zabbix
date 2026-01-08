@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace AbraFlexi\Zabbix;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-use AbraFlexi\Zabbix\Feeder;
+require_once __DIR__.'/../vendor/autoload.php';
 
 \define('APP_NAME', 'AbraFlexi-Network-Check');
 
