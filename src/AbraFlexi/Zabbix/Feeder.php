@@ -599,7 +599,7 @@ class Feeder
                     continue;
                 }
 
- // Skip script name
+                // Skip script name
 
                 // Skip flags and their values
                 if (str_starts_with($arg, '-')) {
@@ -651,7 +651,7 @@ class Feeder
                     continue;
                 }
 
- // Skip script name
+                // Skip script name
 
                 // Skip flags and their values
                 if (str_starts_with($arg, '-')) {
@@ -723,7 +723,7 @@ class Feeder
                     continue;
                 }
 
- // Skip script name
+                // Skip script name
 
                 // Skip flags and their values
                 if (str_starts_with($arg, '-')) {

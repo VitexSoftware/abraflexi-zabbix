@@ -3,11 +3,9 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the Mailer for AbraFlexi package
+ * This file is part of the EaseCore package.
  *
- * https://github.com/VitexSoftware/abraflexi-mailer
- *
- * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -18,7 +16,7 @@ use Ease\Shared;
 
 \define('APP_NAME', 'AbraFlexiShowUnsentInvoices');
 
-require_once '../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 $options = getopt('o::e::', ['output::environment::']);
 Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], \array_key_exists('environment', $options) ? $options['environment'] : '../.env');
