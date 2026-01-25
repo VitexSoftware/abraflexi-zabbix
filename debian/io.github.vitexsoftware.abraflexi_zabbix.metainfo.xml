@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.vitexsoftware.abraflexi_zabbix</id>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <name>abraflexi-zabbix</name>
+  <summary>Zabbix monitoring for AbraFlexi server</summary>
+  <description>
+    <p>
+      Comprehensive monitoring solution for AbraFlexi accounting server using Zabbix with Low Level Discovery, system metrics, and granular alerting. Features: - Low Level Discovery (LLD) of AbraFlexi companies/databases - System metrics monitoring from /status.json endpoint with intelligent caching - Network connectivity monitoring with granular error detection - Immediate alerting for network, authentication, and service issues - Performance monitoring (memory, CPU, sessions, users) - Company availability monitoring - 30-second intelligent caching reduces server load by 73% - Compatible with Zabbix Agent 2 (recommended) and Zabbix Agent This package provides Zabbix user parameter configuration and PHP scripts for monitoring AbraFlexi server health, performance, and availability. - Company availability monitoring This package provides Zabbix user parameter configuration and PHP scripts for monitoring AbraFlexi server health, performance, and availability.
+    </p>
+  </description>
+  <categories>
+    <category>Utility</category>
+  </categories>
+  <url type="homepage">https://github.com/VitexSoftware/abraflexi-zabbix</url>
+  <url type="bugtracker">https://github.com/VitexSoftware/abraflexi-zabbix/issues</url>
+  <developer id="cz.vitexsoftware">
+    <name>VitexSoftware</name>
+  </developer>
+  <content_rating type="oars-1.1"/>
+</component>
