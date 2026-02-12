@@ -41,6 +41,9 @@ ABRAFLEXI_PASSWORD=$ABRAFLEXI_PASSWORD
 EOF
         fi
 
+        chgrp zabbix /etc/abraflexi-zabbix 2>/dev/null || true
+        chmod g+rx /etc/abraflexi-zabbix
+
         # Set proper ownership and permissions for .env file if it exists
         if [ -f /etc/abraflexi-zabbix/.env ]; then
             chown root:zabbix /etc/abraflexi-zabbix/.env 2>/dev/null || true
