@@ -7,7 +7,7 @@ abraflexi-zabbix (1.1.0) unstable; urgency=medium
   * All scripts now use centralized AbraFlexi\Zabbix\Feeder class
   * Reduced code duplication and improved maintainability
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Fri, 06 Dec 2024 02:50:00 +0100
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sun, 22 Mar 2026 15:37:54 +0100
 
 abraflexi-zabbix (1.0.0) unstable; urgency=low
 

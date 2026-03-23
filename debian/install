@@ -3,15 +3,16 @@
 
 
 debian/conf/composer.json       usr/lib/abraflexi-zabbix/
-src/company_lld.php usr/lib/abraflexi-zabbix/
-src/system_status.php usr/lib/abraflexi-zabbix/
-src/cached_system_status.php usr/lib/abraflexi-zabbix/
-src/network_check.php usr/lib/abraflexi-zabbix/
+debian/autoload.php             usr/lib/abraflexi-zabbix/
+src/company_lld.php             usr/lib/abraflexi-zabbix/
+src/system_status.php           usr/lib/abraflexi-zabbix/
+src/cached_system_status.php    usr/lib/abraflexi-zabbix/
+src/network_check.php           usr/lib/abraflexi-zabbix/
 src/AbraFlexi/Zabbix/Feeder.php usr/lib/abraflexi-zabbix/AbraFlexi/Zabbix/
-bin/* usr/bin/
-zabbix_agentd.d/* etc/zabbix/zabbix_agent2.d/
-zabbix/abraflexi-template.xml usr/share/doc/abraflexi-zabbix/
-.env.example usr/share/doc/abraflexi-zabbix/
+bin/*                           usr/bin/
+zabbix_agentd.d/*               etc/zabbix/zabbix_agent2.d/
+zabbix/abraflexi-template.xml   usr/share/doc/abraflexi-zabbix/
+.env.example                    usr/share/doc/abraflexi-zabbix/
 
 # Zabbix server external script for update checks
 zabbix/abraflexi-update-check.sh usr/lib/zabbix/externalscripts/

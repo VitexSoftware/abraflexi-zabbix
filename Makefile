@@ -24,11 +24,7 @@ cs:
 	vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --diff --verbose
 
 .PHONY: phpunit
-phpunit:
-	vendor/bin/phpunit
-
-.PHONY: test
-test: vendor ## Run PHPUnit tests
+phpunit: vendor ## Run PHPUnit tests
 	vendor/bin/phpunit
 
 .PHONY: test-coverage
