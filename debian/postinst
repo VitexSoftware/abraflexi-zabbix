@@ -94,8 +94,6 @@ EOF
     ;;
 esac
 
-composer-debian abraflexi-zabbix
-
 #DEBHELPER#
 
 exit 0

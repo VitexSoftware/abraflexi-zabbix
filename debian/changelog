@@ -1,5 +1,12 @@
+abraflexi-zabbix (1.1.1) UNRELEASED; urgency=medium
+
+  * autoloader and deps update
+
+ -- vitex <info@vitexsoftware.cz>  Mon, 23 Mar 2026 05:21:39 +0100
+
 abraflexi-zabbix (1.1.0) unstable; urgency=medium
 
+  [ Vítězslav Dvořák ]
   * Major architectural refactoring: consolidated code into Feeder class
   * Added --debug and --color flags to all scripts for enhanced JSON output
   * Added API response time monitoring with caching
@@ -7,7 +14,7 @@ abraflexi-zabbix (1.1.0) unstable; urgency=medium
   * All scripts now use centralized AbraFlexi\Zabbix\Feeder class
   * Reduced code duplication and improved maintainability
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sun, 22 Mar 2026 15:37:54 +0100
+ -- vitex <info@vitexsoftware.cz>  Mon, 23 Mar 2026 05:21:13 +0100
 
 abraflexi-zabbix (1.0.0) unstable; urgency=low
 

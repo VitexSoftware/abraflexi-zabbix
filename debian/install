@@ -2,7 +2,6 @@
 # AbraFlexi Zabbix monitoring files
 
 
-debian/conf/composer.json       usr/lib/abraflexi-zabbix/
 debian/autoload.php             usr/lib/abraflexi-zabbix/
 src/company_lld.php             usr/lib/abraflexi-zabbix/
 src/system_status.php           usr/lib/abraflexi-zabbix/
