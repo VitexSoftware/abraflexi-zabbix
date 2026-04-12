@@ -1,25 +1,25 @@
 {
-  "$schema": "https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.app.schema.json",
+  "$schema": "https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/schema/application.json",
   "schemaVersion": "3.0.0",
   "version": "1.3.8",
   "uuid": "137f24ef-11a5-4bf3-81b3-bdf2e0ea7919",
   "name": {
     "en": "Show Unsent",
-    "cs": "Zobrazit neodesíané"
+    "cs": "Zobrazit neodeslané"
   },
   "description": {
     "en": "Report Unsent documents",
-    "cs": "Sestavy neodeslanych dokladů"
+    "cs": "Sestavy neodeslaných dokladů"
   },
   "tags": ["AbraFlexi", "Mail", "Check", "Json"],
-  "homepage": "https://github.com/VitexSoftware/abraflexi-mailer/",
-  "ociimage": "docker.io/vitexsoftware/abraflexi-mailer",
+  "homepage": "https://github.com/VitexSoftware/abraflexi-zabbix",
+  "ociimage": "docker.io/vitexsoftware/abraflexi-zabbix:latest",
   "executable": "abraflexi-show-unsent",
   "environment": {
     "ABRAFLEXI_COMPANY": {
       "type": "string",
       "description": {
-        "en": "AbraFlexi comapny code",
+        "en": "AbraFlexi company code",
         "cs": "Kód společnosti v AbraFlexi"
       },
       "defval": "demo_de",
