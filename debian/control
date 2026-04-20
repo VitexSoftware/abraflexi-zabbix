@@ -11,7 +11,7 @@ Vcs-Browser: https://github.com/VitexSoftware/abraflexi-zabbix
 
 Package: abraflexi-zabbix
 Architecture: all
-Depends: ${misc:Depends}, php-cli (>= 8.0), php-spojenet-abraflexi, zabbix-agent2 | zabbix-agent, debconf
+Depends: composer, ${misc:Depends}, php-cli (>= 8.0), php-spojenet-abraflexi, zabbix-agent2 | zabbix-agent, debconf
 Recommends: zabbix-agent2
 Suggests: abraflexi-client
 Description: Zabbix monitoring for AbraFlexi server
