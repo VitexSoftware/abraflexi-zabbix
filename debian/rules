@@ -20,6 +20,8 @@ override_dh_install:
 		debian/abraflexi-zabbix/usr/share/php/abraflexi-zabbix/autoload.php
 	sed -i "s|: 'unknown'|: '$(PKG_SOURCE)'|" \\
 		debian/abraflexi-zabbix/usr/share/php/abraflexi-zabbix/autoload.php
+	sed -i "s|: '0.0.0'|: '$(PKG_VERSION)'|" \\
+		debian/abraflexi-zabbix/usr/share/php/abraflexi-zabbix/autoload.php
 	sed -i "2a defined('APP_VERSION') || define('APP_VERSION', '$(PKG_VERSION)');" \
 		debian/abraflexi-zabbix/usr/share/php/abraflexi-zabbix/autoload.php
 	# Replace autoload path for installed package
