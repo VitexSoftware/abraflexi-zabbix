@@ -19,3 +19,5 @@ zabbix/abraflexi-update-check.sh usr/lib/zabbix/externalscripts/
 # Separate external scripts for testing/production update checks
 zabbix/abraflexi-update-testing.sh usr/lib/zabbix/externalscripts/
 zabbix/abraflexi-update-production.sh usr/lib/zabbix/externalscripts/
+abraflexi-zabbix.svg	usr/share/icons/hicolor/scalable/apps/
+io.github.vitexsoftware.abraflexi_zabbix.metainfo.xml	usr/share/metainfo/
