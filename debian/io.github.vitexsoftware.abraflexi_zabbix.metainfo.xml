@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component type="desktop-application">
+<component type="console-application">
   <id>io.github.vitexsoftware.abraflexi_zabbix</id>
   <icon type="stock">abraflexi-zabbix</icon>
   <metadata_license>MIT</metadata_license>
   <project_license>MIT</project_license>
-  <name>abraflexi-zabbix</name>
+  <name>AbraFlexi Zabbix</name>
   <summary>Zabbix monitoring for AbraFlexi server</summary>
   <description>
     <p>
-      Comprehensive monitoring solution for AbraFlexi accounting server using Zabbix with Low Level Discovery, system metrics, and granular alerting. Features: - Low Level Discovery (LLD) of AbraFlexi companies/databases - System metrics monitoring from /status.json endpoint with intelligent caching - Network connectivity monitoring with granular error detection - Immediate alerting for network, authentication, and service issues - Performance monitoring (memory, CPU, sessions, users) - Company availability monitoring - 30-second intelligent caching reduces server load by 73% - Compatible with Zabbix Agent 2 (recommended) and Zabbix Agent This package provides Zabbix user parameter configuration and PHP scripts for monitoring AbraFlexi server health, performance, and availability. - Company availability monitoring This package provides Zabbix user parameter configuration and PHP scripts for monitoring AbraFlexi server health, performance, and availability.
+      Comprehensive monitoring solution for AbraFlexi accounting server using
+      Zabbix with Low Level Discovery, system metrics, and granular alerting.
     </p>
+    <ul>
+      <li>Low Level Discovery (LLD) of AbraFlexi companies and databases</li>
+      <li>System metrics monitoring from /status.json endpoint with intelligent caching</li>
+      <li>Network connectivity monitoring with granular error detection</li>
+      <li>Immediate alerting for network, authentication, and service issues</li>
+      <li>Performance monitoring (memory, CPU, sessions, users)</li>
+      <li>Company availability monitoring</li>
+      <li>30-second intelligent caching reduces server load by 73%</li>
+      <li>Report of unsent invoices</li>
+      <li>Compatible with Zabbix Agent 2 (recommended) and Zabbix Agent</li>
+    </ul>
   </description>
+  <provides>
+    <binary>abraflexi-zabbix-status</binary>
+    <binary>abraflexi-zabbix-lld-company</binary>
+    <binary>abraflexi-zabbix-network</binary>
+    <binary>abraflexi-show-unsent</binary>
+    <binary>abraflexi-zabbix-digest</binary>
+  </provides>
   <categories>
+    <category>Network</category>
+    <category>Monitor</category>
     <category>Utility</category>
   </categories>
   <url type="homepage">https://github.com/VitexSoftware/abraflexi-zabbix</url>
@@ -20,4 +41,7 @@
     <name>VitexSoftware</name>
   </developer>
   <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="1.1.0" date="2025-03-01"/>
+  </releases>
 </component>

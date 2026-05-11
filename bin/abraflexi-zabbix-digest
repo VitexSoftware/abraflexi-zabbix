@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/**
+ * AbraFlexi Zabbix Digest — business metrics from digest modules.
+ *
+ * Usage:
+ *   abraflexi-zabbix-digest                          # all metrics as JSON
+ *   abraflexi-zabbix-digest debtors.count            # single metric value
+ *   abraflexi-zabbix-digest --metric=debtors.count   # same, explicit flag
+ *   abraflexi-zabbix-digest --debug --color           # pretty-print JSON
+ *   abraflexi-zabbix-digest --env=/path/to/.env       # custom env file
+ */
+
+namespace AbraFlexi\Zabbix;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+DigestFeeder::handleCommandLine();

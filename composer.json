@@ -10,8 +10,12 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "spojenet/flexibee": "^3.7"
+    "spojenet/flexibee": "^3.7",
+    "vitexsoftware/digest-modules": "dev-main"
   },
+  "repositories": [
+    {"type": "path", "url": "../php-vitexsoftware-digest-modules"}
+  ],
   "autoload": {
     "psr-4": {
       "AbraFlexi\\": "src/AbraFlexi/",

@@ -1,0 +1,93 @@
+.TH ABRAFLEXI-ZABBIX-DIGEST 1 "May 2026" "abraflexi-zabbix" "User Commands"
+.SH NAME
+abraflexi-zabbix-digest \- AbraFlexi business metrics for Zabbix monitoring
+.SH SYNOPSIS
+.B abraflexi-zabbix-digest
+[\fIMETRIC\fR]
+[\fB\-\-metric\fR=\fIMETRIC\fR]
+[\fB\-\-env\fR=\fIFILE\fR]
+[\fB\-\-debug\fR]
+[\fB\-\-color\fR]
+.SH DESCRIPTION
+Collects business metrics from AbraFlexi accounting system using digest
+modules and outputs them in a format suitable for Zabbix monitoring.
+Results are cached for 5 minutes to reduce API load.
+.PP
+When called without arguments, outputs all metrics as a JSON object.
+When a metric name is provided, outputs only that metric's value.
+.SH OPTIONS
+.TP
+.B \-\-metric=\fIMETRIC\fR
+Return a single metric value. Can also be specified as a positional argument.
+.TP
+.B \-\-env=\fIFILE\fR
+Path to .env configuration file (default: /etc/abraflexi-zabbix/.env).
+.TP
+.B \-\-debug
+Pretty-print JSON output.
+.TP
+.B \-\-color
+Colorize JSON output (implies debug).
+.SH AVAILABLE METRICS
+.TP
+.B debtors.count
+Number of debtors with overdue invoices.
+.TP
+.B debtors.total_amount
+Total outstanding amount from debtors.
+.TP
+.B debtors.max_overdue_days
+Maximum number of days overdue among all debtors.
+.TP
+.B waiting_income.count
+Number of unpaid outcoming invoices.
+.TP
+.B waiting_income.total_amount
+Total amount of unpaid outcoming invoices.
+.TP
+.B waiting_payments.count
+Number of unpaid incoming invoices.
+.TP
+.B waiting_payments.total_amount
+Total amount of unpaid incoming invoices.
+.TP
+.B unmatched_payments.count
+Number of unmatched bank payments.
+.TP
+.B unmatched_payments.total_amount
+Total amount of unmatched payments.
+.TP
+.B incoming_invoices.count
+Number of incoming invoices in the period.
+.TP
+.B outcoming_invoices.count
+Number of outcoming invoices in the period.
+.TP
+.B last_run
+Unix timestamp of last data collection.
+.SH ENVIRONMENT
+.TP
+.B ABRAFLEXI_URL
+AbraFlexi server URL.
+.TP
+.B ABRAFLEXI_LOGIN
+API login username.
+.TP
+.B ABRAFLEXI_PASSWORD
+API login password.
+.TP
+.B ABRAFLEXI_COMPANY
+Company database name.
+.SH FILES
+.TP
+.I /var/cache/abraflexi-zabbix/digest_cache.json
+Cached metrics data (5 minute TTL).
+.TP
+.I /etc/zabbix/zabbix_agent2.d/abraflexi-digest.conf
+Zabbix agent UserParameter configuration.
+.SH SEE ALSO
+.BR abraflexi-zabbix-status (1),
+.BR abraflexi-zabbix-network (1),
+.BR zabbix_agent2 (8)
+.SH AUTHOR
+Vítězslav Dvořák <info@vitexsoftware.cz>

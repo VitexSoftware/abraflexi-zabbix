@@ -7,6 +7,7 @@ src/company_lld.php             usr/lib/abraflexi-zabbix/
 src/system_status.php           usr/lib/abraflexi-zabbix/
 src/cached_system_status.php    usr/lib/abraflexi-zabbix/
 src/network_check.php           usr/lib/abraflexi-zabbix/
+src/ShowUnsent.php              usr/lib/abraflexi-zabbix/
 src/AbraFlexi/Zabbix/Feeder.php usr/lib/abraflexi-zabbix/AbraFlexi/Zabbix/
 bin/*                           usr/bin/
 zabbix_agentd.d/*               etc/zabbix/zabbix_agent2.d/
@@ -20,4 +21,4 @@ zabbix/abraflexi-update-check.sh usr/lib/zabbix/externalscripts/
 zabbix/abraflexi-update-testing.sh usr/lib/zabbix/externalscripts/
 zabbix/abraflexi-update-production.sh usr/lib/zabbix/externalscripts/
 abraflexi-zabbix.svg	usr/share/icons/hicolor/scalable/apps/
-io.github.vitexsoftware.abraflexi_zabbix.metainfo.xml	usr/share/metainfo/
+debian/io.github.vitexsoftware.abraflexi_zabbix.metainfo.xml	usr/share/metainfo/
