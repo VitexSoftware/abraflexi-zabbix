@@ -1,8 +1,16 @@
-abraflexi-zabbix (1.1.1) UNRELEASED; urgency=medium
+abraflexi-zabbix (1.1.1) stable; urgency=medium
 
-  * autoloader and deps update
+  * fix: add missing ShowUnsent.php to package — fixes "exited with error" Zabbix alert
+  * fix: skip loading .env when running under MultiFlexi executor (MULTIFLEXI_JOB_ID set)
+  * fix: replace ../i18n path with /usr/share/locale in installed PHP files
+  * fix: correct metainfo install path to debian/ prefix for dh_install
+  * fix: autoloader and dependency updates; inject APP_NAME/APP_VERSION at build time
+  * feat: add abraflexi-zabbix-digest binary, DigestFeeder and Zabbix conf
+  * feat: add abraflexi-show-unsent script and man page
+  * appstream: change component type to console-application, fix description markup,
+    add provides/binary entries for all binaries, add releases section
 
- -- vitex <info@vitexsoftware.cz>  Mon, 23 Mar 2026 05:21:39 +0100
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sun, 11 May 2026 08:00:00 +0200
 
 abraflexi-zabbix (1.1.0) unstable; urgency=medium
 
